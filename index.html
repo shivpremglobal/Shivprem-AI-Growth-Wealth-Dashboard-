@@ -1,268 +1,1356 @@
 <!DOCTYPE html>
-<html lang="ta" data-theme="dark">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shiv Prem — AI Growth & Wealth Command Center</title>
+    <title>SHIV PREM — AI Growth & Wealth Command Center</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Anton (Poster Header), Oswald (Subheadings), Inter & Noto Sans Tamil -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Noto+Sans+Tamil:wght@400;600;700&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        poster: ['Anton', 'Oswald', 'Noto Sans Tamil', 'sans-serif'],
+                        heading: ['Oswald', 'Noto Sans Tamil', 'sans-serif'],
+                        sans: ['Inter', 'Noto Sans Tamil', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        matteBlack: '#090a0f',
+                        panelDark: '#12151e',
+                        crimsonRed: '#ef4444',
+                        posterYellow: '#facc15',
+                        emeraldGrowth: '#22c55e',
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
+        /* Theme Variables for Seamless Dark & White Mode Switching */
         :root {
-            --bg-color: #090a0f;
-            --card-bg: #121620;
-            --border-color: #1e293b;
-            --accent-red: #ef4444;
-            --accent-yellow: #facc15;
-            --accent-green: #22c55e;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --header-bg: linear-gradient(135deg, #180303, #090a0f);
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-inset: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border-card: #cbd5e1;
+            --shadow-card: 5px 5px 0px #0f172a;
+            --grid-dot: rgba(15, 23, 42, 0.06);
         }
-        [data-theme="light"] {
-            --bg-color: #f1f5f9;
-            --card-bg: #ffffff;
-            --border-color: #cbd5e1;
-            --accent-red: #dc2626;
-            --accent-yellow: #ca8a04;
-            --accent-green: #16a34a;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --header-bg: linear-gradient(135deg, #fee2e2, #f1f5f9);
+        html.dark {
+            --bg-main: #090a0f;
+            --bg-card: #12151e;
+            --bg-inset: #090a0f;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-card: #27272a;
+            --shadow-card: 5px 5px 0px #000000;
+            --grid-dot: rgba(255, 255, 255, 0.035);
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); padding: 10px; transition: 0.3s; }
-        .container { max-width: 520px; margin: 0 auto; background: var(--card-bg); border-radius: 20px; overflow: hidden; border: 2px solid var(--accent-red); box-shadow: 0 15px 35px rgba(239, 68, 68, 0.2); }
-        
-        .top-bar { display: flex; justify-content: space-between; padding: 10px 15px; background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border-color); font-size: 12px; }
-        .toggle-btn { background: var(--border-color); color: var(--text-main); border: none; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
 
-        .header { background: var(--header-bg); padding: 20px; text-align: center; border-bottom: 2px solid var(--accent-red); }
-        .mascot-avatar { width: 80px; height: 80px; margin: 0 auto 10px; border-radius: 50%; border: 3px solid var(--accent-yellow); background: #ef4444; display: flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 0 15px rgba(250, 204, 21, 0.5); }
-        .header h1 { color: var(--accent-yellow); font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
-        .header p { color: var(--text-muted); font-size: 11px; margin-top: 3px; }
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            background-image: radial-gradient(var(--grid-dot) 1px, transparent 1px);
+            background-size: 20px 20px;
+            transition: background-color 0.25s ease, color 0.25s ease;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
 
-        .tabs { display: flex; background: var(--border-color); overflow-x: auto; }
-        .tab-btn { flex: 1; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; color: var(--text-muted); background: none; border: none; cursor: pointer; white-space: nowrap; }
-        .tab-btn.active { color: var(--accent-yellow); background: var(--card-bg); border-bottom: 2px solid var(--accent-yellow); }
+        .poster-title {
+            font-family: 'Anton', 'Noto Sans Tamil', sans-serif;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            line-height: 1.08;
+        }
 
-        .tab-content { display: none; padding: 15px; }
-        .tab-content.active { display: block; }
+        .comic-card {
+            background-color: var(--bg-card);
+            border: 2px solid var(--border-card);
+            box-shadow: var(--shadow-card);
+            transition: background-color 0.25s ease, border-color 0.2s ease, transform 0.15s ease;
+        }
+        .comic-card-red {
+            background-color: var(--bg-card);
+            border: 2px solid #ef4444;
+            box-shadow: 6px 6px 0px rgba(239, 68, 68, 0.35);
+        }
+        .comic-card-yellow {
+            background-color: var(--bg-card);
+            border: 2px solid #eab308;
+            box-shadow: 6px 6px 0px rgba(250, 204, 21, 0.3);
+        }
+        .comic-card-green {
+            background-color: var(--bg-card);
+            border: 2px solid #22c55e;
+            box-shadow: 6px 6px 0px rgba(34, 197, 94, 0.3);
+        }
+        .inset-box {
+            background-color: var(--bg-inset);
+            border: 1.5px solid var(--border-card);
+        }
+        .muted-text {
+            color: var(--text-secondary);
+        }
 
-        .section-title { font-size: 14px; color: var(--accent-yellow); margin-bottom: 10px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 18px;
+            width: 18px;
+            border-radius: 50%;
+            background: #facc15;
+            border: 2px solid #090a0f;
+            cursor: pointer;
+            margin-top: -6px;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 6px;
+            cursor: pointer;
+            background: #334155;
+            border-radius: 999px;
+        }
 
-        .graphs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .graph-card { background: var(--border-color); padding: 10px; border-radius: 10px; text-align: center; cursor: pointer; border: 1px solid transparent; transition: 0.2s; }
-        .graph-card:hover { border-color: var(--accent-yellow); }
-        .graph-card h4 { font-size: 11px; color: var(--text-muted); margin-bottom: 5px; }
-        .mini-graph { height: 60px; background: #000; border-radius: 6px; display: flex; align-items: flex-end; justify-content: space-around; padding: 5px; }
-        .bar { width: 12px; background: var(--accent-green); border-radius: 3px 3px 0 0; }
-        .bar.red { background: var(--accent-red); }
-        .bar.yellow { background: var(--accent-yellow); }
-
-        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-        .stat-card { background: var(--border-color); padding: 10px; border-radius: 10px; text-align: center; }
-        .stat-label { font-size: 10px; color: var(--text-muted); }
-        .stat-val { font-size: 14px; font-weight: bold; color: var(--text-main); margin-top: 3px; }
-        .stat-val.red { color: var(--accent-red); }
-        .stat-val.green { color: var(--accent-green); }
-
-        .ai-strip { background: linear-gradient(135deg, #1e1b18, #111827); border-left: 4px solid var(--accent-yellow); padding: 10px 12px; border-radius: 0 8px 8px 0; font-size: 12px; color: #fef08a; margin-bottom: 15px; line-height: 1.4; }
-
-        .debt-item { display: flex; justify-content: space-between; align-items: center; background: var(--border-color); padding: 8px 10px; border-radius: 6px; margin-bottom: 6px; font-size: 12px; }
-        .debt-amt { color: var(--accent-red); font-weight: bold; }
-
-        .btn { width: 100%; background: var(--accent-yellow); color: #000; padding: 10px; border: none; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer; margin-top: 10px; }
-
-        .ai-float-btn { position: fixed; bottom: 20px; right: 20px; width: 55px; height: 55px; background: var(--accent-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 5px 20px rgba(250, 204, 21, 0.5); z-index: 1000; }
-
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: var(--card-bg); padding: 20px; border-radius: 15px; width: 100%; max-width: 400px; border: 2px solid var(--accent-yellow); }
-        .modal-content h3 { color: var(--accent-yellow); margin-bottom: 10px; font-size: 16px; }
-        .modal-content input { width: 100%; padding: 8px; margin: 8px 0; background: var(--border-color); border: 1px solid var(--text-muted); color: var(--text-main); border-radius: 6px; }
-
-        .footer { text-align: center; padding: 15px; font-size: 10px; color: var(--text-muted); }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #facc15; }
     </style>
 </head>
-<body>
+<body class="antialiased pb-16">
 
-<div class="container">
-    <div class="top-bar">
-        <div><span id="langText">தமிழ் / EN</span> <button class="toggle-btn" onclick="toggleLanguage()">Switch</button></div>
-        <div><button class="toggle-btn" onclick="toggleTheme()">🌓 Theme</button></div>
-    </div>
-
-    <div class="header">
-        <div class="mascot-avatar">🧔</div>
-        <h1 id="mainTitle">SHIV PREM — COMMAND CENTER</h1>
-        <p id="subTitle">Age 33 | System Builder & Wealth Architect (1993–2030+)</p>
-    </div>
-
-    <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab(event, 'tab-dashboard')">Dashboard</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab-roadmap')">2026-2030 Roadmap</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab-ai')">AI Coach Bot</button>
-    </div>
-
-    <div id="tab-dashboard" class="tab-content active">
-        <div class="ai-strip">
-            🤖 <b>AI Daily Strategy:</b> தற்போதைய கடன்களை (₹27L) Avalanche முறையில் Gold Loan & Marutheasan முதல் அடைப்போம். டிரைவிங் + அல்கோ வருமானத்தில் உபரியை முதலீட்டிற்கு திருப்புங்கள்!
+    <!-- Floating Comic Notification Banner -->
+    <div id="comicToast" class="fixed bottom-5 right-5 z-50 transform translate-y-28 opacity-0 transition-all duration-300 bg-posterYellow text-matteBlack border-2 border-slate-900 px-4 py-3 rounded-xl shadow-[5px_5px_0px_#ef4444] flex items-center gap-3 max-w-xs sm:max-w-sm">
+        <span class="text-xl">⚡</span>
+        <div>
+            <div id="toastTitle" class="font-poster text-sm tracking-wide">UPDATED!</div>
+            <div id="toastDesc" class="text-xs font-bold leading-snug">Command Center synced.</div>
         </div>
+    </div>
 
-        <div class="section-title">📈 Split Growth & Wealth Trajectory (Click to Zoom & Edit)</div>
-        <div class="graphs-grid">
-            <div class="graph-card" onclick="openGraphModal('Personal Growth (1993-2030)', 'Life stability, spiritual discipline & family maturity stage.')">
-                <h4>🌱 Personal Growth</h4>
-                <div class="mini-graph">
-                    <div class="bar yellow" style="height: 30%;"></div>
-                    <div class="bar red" style="height: 50%;"></div>
-                    <div class="bar green" style="height: 80%;"></div>
-                    <div class="bar green" style="height: 100%;"></div>
+    <!-- Main Container -->
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 pt-4 space-y-6">
+
+        <!-- =========================================================
+             1. TOP NAVIGATION BAR (BRAND + TAMIL/EN + DARK/WHITE THEME)
+        ========================================================== -->
+        <nav class="comic-card rounded-2xl px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2.5">
+                <span class="w-3 h-3 rounded-full bg-crimsonRed animate-ping"></span>
+                <span class="font-poster text-base sm:text-lg tracking-wider">
+                    SHIV PREM <span class="text-crimsonRed">//</span> <span class="text-amber-500">AI COMMAND OS</span>
+                </span>
+                <span class="hidden md:inline-block text-[11px] font-mono px-2 py-0.5 rounded bg-emeraldGrowth/15 text-emeraldGrowth border border-emeraldGrowth/30">
+                    SYSTEM BUILDER v3.0
+                </span>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+                <!-- Dual Language Switcher (EN / தமிழ்) -->
+                <div class="flex items-center rounded-xl border-2 border-slate-700 overflow-hidden bg-slate-900 p-0.5">
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-3 py-1 rounded-lg text-xs font-bold bg-posterYellow text-matteBlack transition">
+                        EN
+                    </button>
+                    <button onclick="setLanguage('ta')" id="lang-ta" class="px-3 py-1 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition">
+                        தமிழ்
+                    </button>
+                </div>
+
+                <!-- Theme Toggle (Dark Matte Black / Crisp White) -->
+                <button onclick="toggleThemeMode()" id="themeToggleBtn" class="px-3 py-1.5 rounded-xl border-2 border-slate-700 bg-slate-900 text-posterYellow hover:border-posterYellow text-xs font-bold flex items-center gap-1.5 transition">
+                    <span id="themeIcon">☀️</span>
+                    <span id="themeLabel">White Mode</span>
+                </button>
+
+                <!-- Backup & Reset -->
+                <button onclick="exportJsonSnapshot()" class="px-3 py-1.5 rounded-xl border-2 border-emeraldGrowth/50 bg-emeraldGrowth/10 text-emeraldGrowth hover:bg-emeraldGrowth hover:text-matteBlack text-xs font-bold transition" title="Export Backup">
+                    ⬇ JSON
+                </button>
+                <button onclick="triggerResetFlow()" id="resetBtnMain" class="px-2.5 py-1.5 rounded-xl border-2 border-slate-700 text-slate-400 hover:text-crimsonRed text-xs font-bold transition">
+                    ↺
+                </button>
+                <button onclick="confirmHardReset()" id="resetBtnConfirm" class="hidden px-3 py-1.5 rounded-xl bg-crimsonRed text-white text-xs font-bold animate-pulse">
+                    Confirm Reset
+                </button>
+            </div>
+        </nav>
+
+        <!-- =========================================================
+             2. PROFILE HERO BANNER WITH INLINE SVG CARTOON MASCOT
+        ========================================================== -->
+        <header class="comic-card-red rounded-2xl p-4 sm:p-6 relative overflow-hidden">
+            <div class="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-6">
+                
+                <!-- Left: Cartoon Mascot + Identity -->
+                <div class="flex flex-col sm:flex-row items-center gap-5 w-full lg:w-auto">
+                    <!-- Custom Inline SVG Cartoon Avatar (Curly black hair, silver rectangular glasses, beard, dark blue t-shirt, crimson red badge) -->
+                    <div id="mascotAvatarFrame" class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full bg-crimsonRed border-4 border-white shadow-[0_0_0_4px_#090a0f,6px_6px_0px_#facc15] flex-shrink-0 overflow-hidden">
+                        <svg viewBox="0 0 220 220" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                            <circle id="mascotAura" cx="110" cy="110" r="110" fill="#ef4444"/>
+                            <g opacity="0.16" fill="#000000">
+                                <polygon points="110,110 0,18 38,0"/>
+                                <polygon points="110,110 182,0 220,24"/>
+                                <polygon points="110,110 220,168 198,220"/>
+                                <polygon points="110,110 22,220 0,172"/>
+                            </g>
+                            <!-- Dark Blue T-Shirt -->
+                            <path d="M24,220 C32,174 64,162 110,162 C156,162 188,174 196,220 Z" fill="#172554" stroke="#090a0f" stroke-width="4"/>
+                            <path d="M78,164 Q110,186 142,164" fill="none" stroke="#0f172a" stroke-width="5" stroke-linecap="round"/>
+                            <!-- Neck -->
+                            <path d="M88,136 L88,168 Q110,179 132,168 L132,136 Z" fill="#d97724" stroke="#090a0f" stroke-width="3.5"/>
+                            <!-- Ears -->
+                            <ellipse cx="56" cy="105" rx="10" ry="15" fill="#e0822d" stroke="#090a0f" stroke-width="3.5"/>
+                            <ellipse cx="164" cy="105" rx="10" ry="15" fill="#e0822d" stroke="#090a0f" stroke-width="3.5"/>
+                            <!-- Face -->
+                            <path d="M60,82 C60,45 160,45 160,82 C160,126 142,152 110,152 C78,152 60,126 60,82 Z" fill="#ea8c32" stroke="#090a0f" stroke-width="4"/>
+                            <!-- Full Beard -->
+                            <path d="M61,98 C61,134 80,153 110,153 C140,153 159,134 159,98 C155,114 147,125 135,127 C127,120 93,120 85,127 C73,125 65,114 61,98 Z" fill="#18181b" stroke="#090a0f" stroke-width="3"/>
+                            <!-- Mustache -->
+                            <path d="M83,125 Q110,114 137,125 Q134,132 110,128 Q86,132 83,125 Z" fill="#18181b" stroke="#090a0f" stroke-width="2.5"/>
+                            <!-- Smile -->
+                            <path d="M89,129 Q110,147 131,129 Z" fill="#ffffff" stroke="#090a0f" stroke-width="2.5"/>
+                            <path d="M96,137 Q110,144 124,137 Q110,146 96,137 Z" fill="#ef4444"/>
+                            <!-- Nose -->
+                            <path d="M106,96 L102,112 Q110,117 118,112" fill="none" stroke="#9a3412" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <!-- Eyebrows -->
+                            <path d="M72,79 Q86,72 99,78" fill="none" stroke="#18181b" stroke-width="5.5" stroke-linecap="round"/>
+                            <path d="M121,78 Q134,72 148,79" fill="none" stroke="#18181b" stroke-width="5.5" stroke-linecap="round"/>
+                            <!-- Eyes -->
+                            <ellipse cx="86" cy="95" rx="10" ry="8" fill="#ffffff" stroke="#090a0f" stroke-width="2.5"/>
+                            <circle cx="87" cy="95" r="5" fill="#1c1917"/>
+                            <circle cx="89" cy="93" r="1.8" fill="#ffffff"/>
+                            <ellipse cx="134" cy="95" rx="10" ry="8" fill="#ffffff" stroke="#090a0f" stroke-width="2.5"/>
+                            <circle cx="133" cy="95" r="5" fill="#1c1917"/>
+                            <circle cx="135" cy="93" r="1.8" fill="#ffffff"/>
+                            <!-- Silver Rectangular Glasses -->
+                            <g stroke="#e4e4e7" stroke-width="3.5" fill="rgba(255,255,255,0.14)">
+                                <rect x="66" y="83" width="38" height="24" rx="6"/>
+                                <rect x="116" y="83" width="38" height="24" rx="6"/>
+                                <path d="M104,92 Q110,89 116,92" fill="none" stroke-width="3.5"/>
+                                <line x1="58" y1="89" x2="66" y2="91" stroke-width="3.5"/>
+                                <line x1="154" y1="91" x2="162" y2="89" stroke-width="3.5"/>
+                            </g>
+                            <!-- Curly Black Hair -->
+                            <path d="M56,85 C46,66 56,42 74,35 C82,20 106,16 122,24 C138,16 160,26 165,44 C178,54 174,76 163,86 C160,68 148,58 134,58 C120,62 98,62 84,58 C70,58 60,68 56,85 Z" fill="#18181b" stroke="#090a0f" stroke-width="3.5" stroke-linejoin="round"/>
+                            <path d="M74,44 Q84,34 94,44 M102,38 Q112,26 124,38 M132,42 Q144,32 152,44 M64,62 Q72,52 82,60 M138,60 Q148,52 156,62" fill="none" stroke="#3f3f46" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                        <div class="absolute bottom-0 inset-x-0 bg-matteBlack/90 text-posterYellow font-poster text-[10px] text-center py-0.5 tracking-wider border-t border-white/20">
+                            AGE 33 • 2026
+                        </div>
+                    </div>
+
+                    <!-- Profile Details & Ultimate Life Equation Badge -->
+                    <div class="text-center sm:text-left">
+                        <div class="inline-flex items-center gap-2 bg-crimsonRed text-white font-poster text-xs px-3 py-1 rounded tracking-wider mb-1.5 shadow-[3px_3px_0px_#000]">
+                            <span data-i18n="lifeEquationBadge">⚡ “YOUR LIFE DIDN’T BREAK. IT REVEALED A FORMULA.”</span>
+                        </div>
+                        <h1 class="poster-title text-3xl sm:text-4xl md:text-5xl">
+                            SHIV PREM <span class="text-amber-500">//</span> <span data-i18n="heroSubtitle">SYSTEM BUILDER (2026)</span>
+                        </h1>
+                        <p class="text-xs sm:text-sm muted-text font-medium mt-1" data-i18n="heroBio">
+                            B.Tech Biotech • Coimbatore &amp; Tenkasi • Father of சிவருத்ரா • Money Earth Global &amp; Goobro Founder
+                        </p>
+
+                        <!-- Quick Status Pills -->
+                        <div class="mt-3 flex flex-wrap justify-center sm:justify-start gap-2 text-xs font-mono">
+                            <span class="px-2.5 py-1 rounded-lg bg-crimsonRed/15 text-crimsonRed border border-crimsonRed/30 font-bold">
+                                <span data-i18n="debtLabel">Debt</span>: <span id="topDebtStat">₹27,00,000</span>
+                            </span>
+                            <span class="px-2.5 py-1 rounded-lg bg-emeraldGrowth/15 text-emeraldGrowth border border-emeraldGrowth/30 font-bold">
+                                <span data-i18n="targetLabel">2030 Target</span>: ₹1,00,00,000+
+                            </span>
+                            <span class="px-2.5 py-1 rounded-lg bg-amber-500/15 text-amber-500 border border-amber-500/30 font-bold">
+                                <span data-i18n="netWorthLabel">Net Worth</span>: <span id="topNetWorthStat">-₹27,00,000</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Live Net Worth Trajectory Gauge (-27L to +1Cr) -->
+                <div class="w-full lg:w-80 inset-box rounded-2xl p-4 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <span class="font-heading text-xs uppercase tracking-wider muted-text" data-i18n="journeyProgressTitle">2025 ➔ 2030 WEALTH SWING</span>
+                        <span id="nwProgressPct" class="font-mono text-sm font-extrabold text-emeraldGrowth">0%</span>
+                    </div>
+                    <div class="w-full h-5 bg-slate-900 rounded-lg border border-slate-700 p-0.5 overflow-hidden mb-2">
+                        <div id="nwProgressBar" class="h-full rounded bg-gradient-to-r from-crimsonRed via-posterYellow to-emeraldGrowth transition-all duration-500" style="width: 4%;"></div>
+                    </div>
+                    <div class="flex justify-between text-[10px] font-mono muted-text mb-3">
+                        <span class="text-crimsonRed">-₹27L (2025)</span>
+                        <span class="text-amber-500">₹0 Breakout</span>
+                        <span class="text-emeraldGrowth">+₹1Cr (2030)</span>
+                    </div>
+
+                    <div class="flex items-center justify-between gap-2 pt-2 border-t border-slate-700/40">
+                        <label class="text-[11px] font-mono muted-text" data-i18n="sipAssetsLabel">Assets / SIP (₹):</label>
+                        <input type="number" id="assetsInput" min="0" step="5000" value="0" onchange="updateAssetsValue(this.value)" class="w-28 inset-box rounded-lg px-2 py-1 text-right font-mono text-xs font-bold text-emeraldGrowth focus:outline-none focus:border-emeraldGrowth">
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- =========================================================
+             3. DUAL SPLIT GRAPHS (LEFT: PERSONAL GROWTH | RIGHT: WEALTH & DEBT)
+        ========================================================== -->
+        <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- LEFT GRAPH (6 Cols): Personal Growth & Life Equation (1993–2030+) -->
+            <div class="lg:col-span-6 comic-card-yellow rounded-2xl p-4 sm:p-5 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between gap-2 mb-2">
+                        <div>
+                            <span class="bg-posterYellow text-matteBlack font-poster text-[11px] px-2.5 py-0.5 rounded uppercase tracking-wider" data-i18n="leftGraphBadge">
+                                LEFT GRAPH • PERSONAL EVOLUTION (1993–2030+)
+                            </span>
+                            <h2 class="poster-title text-xl sm:text-2xl mt-1" data-i18n="leftGraphTitle">
+                                PERSONAL GROWTH &amp; LIFE EQUATION
+                            </h2>
+                        </div>
+                        <span class="text-[11px] font-mono text-amber-500" data-i18n="tapNodeHint">Tap Node ●</span>
+                    </div>
+
+                    <!-- Interactive SVG Personal Growth Candlestick/Node Chart -->
+                    <div class="bg-matteBlack border-2 border-slate-800 rounded-xl p-2.5 mb-3">
+                        <svg id="personalGrowthSvg" viewBox="0 0 540 235" class="w-full h-auto select-none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Grid -->
+                            <g stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3">
+                                <line x1="35" y1="195" x2="520" y2="195"/>
+                                <line x1="35" y1="145" x2="520" y2="145"/>
+                                <line x1="35" y1="95" x2="520" y2="95"/>
+                                <line x1="35" y1="45" x2="520" y2="45"/>
+                            </g>
+                            <!-- Breakout Resistance Line -->
+                            <line x1="35" y1="110" x2="520" y2="110" stroke="#facc15" stroke-width="1.3" stroke-dasharray="5 4"/>
+                            <text x="42" y="104" fill="#facc15" font-family="Oswald, sans-serif" font-size="10" letter-spacing="0.8">BREAKOUT RESISTANCE (2026 SYSTEM)</text>
+
+                            <!-- Growth Curve Area & Line -->
+                            <defs>
+                                <linearGradient id="personalArea" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#facc15" stop-opacity="0.3"/>
+                                    <stop offset="100%" stop-color="#facc15" stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M 48,182 L 95,165 L 142,150 L 188,138 L 235,120 L 282,166 L 328,136 L 372,148 L 418,108 L 495,36 L 495,195 L 48,195 Z" fill="url(#personalArea)"/>
+                            <path d="M 48,182 L 95,165 L 142,150 L 188,138 L 235,120 L 282,166 L 328,136 L 372,148 L 418,108 L 495,36" fill="none" stroke="#facc15" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                            <polygon points="504,29 486,32 496,45" fill="#facc15"/>
+
+                            <!-- Interactive Nodes populated by JS -->
+                            <g id="personalNodesGroup"></g>
+
+                            <!-- X-Axis Years -->
+                            <g fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="9" text-anchor="middle">
+                                <text x="48" y="212">1993</text>
+                                <text x="95" y="212">2010</text>
+                                <text x="142" y="212">2015</text>
+                                <text x="188" y="212">2017</text>
+                                <text x="235" y="212">2020</text>
+                                <text x="282" y="212" fill="#ef4444">2022</text>
+                                <text x="328" y="212">2023</text>
+                                <text x="372" y="212" fill="#ef4444">2024</text>
+                                <text x="418" y="212" fill="#facc15" font-weight="bold">2026</text>
+                                <text x="495" y="212" fill="#22c55e" font-weight="bold">2030+</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Selected Life Node Insight Card -->
+                <div id="lifeInsightCard" class="inset-box rounded-xl p-3.5 border-l-4 border-l-posterYellow">
+                    <!-- Populated via JS -->
                 </div>
             </div>
-            <div class="graph-card" onclick="openGraphModal('Wealth & Debt Trajectory', '-27L Debt to +1 Crore Wealth Curve.')">
-                <h4>💰 Wealth & Debt</h4>
-                <div class="mini-graph">
-                    <div class="bar red" style="height: 90%;"></div>
-                    <div class="bar yellow" style="height: 50%;"></div>
-                    <div class="bar green" style="height: 30%;"></div>
-                    <div class="bar green" style="height: 95%;"></div>
+
+            <!-- RIGHT GRAPH (6 Cols): Wealth Growth, Income & Debt Destruction Trajectory -->
+            <div class="lg:col-span-6 comic-card-green rounded-2xl p-4 sm:p-5 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between gap-2 mb-2">
+                        <div>
+                            <span class="bg-emeraldGrowth text-matteBlack font-poster text-[11px] px-2.5 py-0.5 rounded uppercase tracking-wider" data-i18n="rightGraphBadge">
+                                RIGHT GRAPH • -₹27L DEBT ➔ +₹1 CRORE WEALTH
+                            </span>
+                            <h2 class="poster-title text-xl sm:text-2xl mt-1" data-i18n="rightGraphTitle">
+                                WEALTH GROWTH &amp; DEBT DESTRUCTION CURVE
+                            </h2>
+                        </div>
+                        <span class="text-[11px] font-mono text-emeraldGrowth font-bold">2025 – 2030</span>
+                    </div>
+
+                    <!-- Dynamic SVG Financial Trajectory Chart (Updates live as debt is paid!) -->
+                    <div class="bg-matteBlack border-2 border-slate-800 rounded-xl p-2.5 mb-3">
+                        <svg id="wealthGrowthSvg" viewBox="0 0 540 235" class="w-full h-auto select-none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Grid Lines -->
+                            <g stroke="#1e293b" stroke-width="1" stroke-dasharray="3 3">
+                                <line x1="55" y1="32" x2="515" y2="32"/>
+                                <line x1="55" y1="72" x2="515" y2="72"/>
+                                <line x1="55" y1="112" x2="515" y2="112"/>
+                                <line x1="55" y1="150" x2="515" y2="150"/>
+                                <line x1="55" y1="192" x2="515" y2="192"/>
+                            </g>
+
+                            <!-- Y-Axis Financial Labels -->
+                            <g fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="end">
+                                <text x="48" y="36">+₹1 Cr</text>
+                                <text x="48" y="76">+₹70L</text>
+                                <text x="48" y="116">+₹40L</text>
+                                <text x="48" y="154" fill="#facc15" font-weight="bold">₹0</text>
+                                <text x="48" y="196" fill="#ef4444">-₹27L</text>
+                            </g>
+
+                            <!-- Zero Debt Breakout Line (Y = 150) -->
+                            <line x1="55" y1="150" x2="515" y2="150" stroke="#facc15" stroke-width="1.6" stroke-dasharray="6 4"/>
+                            <text x="64" y="143" fill="#facc15" font-family="Oswald, sans-serif" font-size="10" letter-spacing="0.8">ZERO DEBT LINE (₹0 BREAKOUT • DEC 2026)</text>
+
+                            <!-- Dynamic Wealth & Debt Path rendered by JS -->
+                            <g id="wealthSvgDynamicLayer"></g>
+
+                            <!-- X-Axis Years -->
+                            <g fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="9.5" text-anchor="middle">
+                                <text x="75" y="212" fill="#ef4444">2025</text>
+                                <text x="155" y="212" fill="#facc15" font-weight="bold">2026 Now</text>
+                                <text x="240" y="212">2027</text>
+                                <text x="325" y="212">2028</text>
+                                <text x="410" y="212">2029</text>
+                                <text x="495" y="212" fill="#22c55e" font-weight="bold">2030</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Financial Milestone Strip under Right Graph -->
+                <div class="grid grid-cols-4 gap-2 text-center">
+                    <div class="inset-box p-2 rounded-xl">
+                        <div class="text-[10px] font-mono muted-text">2027</div>
+                        <div class="font-mono text-xs sm:text-sm font-extrabold text-emeraldGrowth">₹20L</div>
+                    </div>
+                    <div class="inset-box p-2 rounded-xl">
+                        <div class="text-[10px] font-mono muted-text">2028</div>
+                        <div class="font-mono text-xs sm:text-sm font-extrabold text-emeraldGrowth">₹40L</div>
+                    </div>
+                    <div class="inset-box p-2 rounded-xl">
+                        <div class="text-[10px] font-mono muted-text">2029</div>
+                        <div class="font-mono text-xs sm:text-sm font-extrabold text-emeraldGrowth">₹70L</div>
+                    </div>
+                    <div class="inset-box p-2 rounded-xl border-emeraldGrowth">
+                        <div class="text-[10px] font-mono text-emeraldGrowth font-bold">2030 SWP</div>
+                        <div class="font-mono text-xs sm:text-sm font-extrabold text-amber-500">₹1Cr / 45K</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="graph-card" onclick="openGraphModal('Skill Improvement Level', 'TradingView, Pine Script, MT5, AI Automation & Driving Business.')" style="margin-bottom: 15px;">
-            <h4>⚡ 3rd Graph: Skill Improvement & System Building Level</h4>
-            <div class="mini-graph" style="height: 40px;">
-                <div class="bar yellow" style="height: 40%;"></div>
-                <div class="bar green" style="height: 70%;"></div>
-                <div class="bar green" style="height: 90%;"></div>
-            </div>
-        </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-label">Net Worth Status</div>
-                <div class="stat-val red">-₹27,00,000</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">2030 Target</div>
-                <div class="stat-val green">₹1,00,00,000+</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Monthly Income</div>
-                <div class="stat-val">₹1,25,000</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Essential Outgo</div>
-                <div class="stat-val">₹45,000</div>
-            </div>
-        </div>
+        </section>
 
-        <div class="section-title">🔥 Debt Destruction Engine (Avalanche)</div>
-        <div class="debt-item"><span>1. Gold Loan (Secured)</span><span class="debt-amt">₹15,00,000</span></div>
-        <div class="debt-item"><span>2. Marutheasan (Private)</span><span class="debt-amt">₹4,00,000</span></div>
-        <div class="debt-item"><span>3. IOB Bank Loan</span><span class="debt-amt">₹2,00,000</span></div>
-        <div class="debt-item"><span>4. Canara, Bajaj, HDFC, Chola, KVB</span><span class="debt-amt">₹6,00,000</span></div>
-        <button class="btn" onclick="alert('EMI payment logged successfully! Keep pushing forward Shiv Prem! 🚀')">⚡ Pay Monthly EMI / Update Debt</button>
+        <!-- =========================================================
+             4. SHORT AI DAILY SUGGESTION & ANALYSIS STRIP
+        ========================================================== -->
+        <section class="comic-card-yellow rounded-2xl p-4 sm:p-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                <div class="flex items-center gap-2.5">
+                    <span class="w-8 h-8 rounded-xl bg-posterYellow text-matteBlack font-poster text-lg flex items-center justify-center shadow-[2px_2px_0px_#ef4444]">
+                        ⚡
+                    </span>
+                    <div>
+                        <h3 class="poster-title text-lg sm:text-xl text-amber-500" data-i18n="aiStripTitle">
+                            AI DAILY SUGGESTION &amp; IMPROVEMENT ANALYSIS
+                        </h3>
+                        <p class="text-[11px] font-mono muted-text" data-i18n="aiStripSub">
+                            Real-time analysis of your ₹27L debt, ₹1.25L+ cashflow target &amp; daily execution
+                        </p>
+                    </div>
+                </div>
+
+                <button onclick="nextAiDailyTip()" class="bg-posterYellow hover:bg-yellow-300 text-matteBlack font-poster text-xs px-4 py-2 rounded-xl tracking-wider shadow-[3px_3px_0px_#000] transition self-start sm:self-auto" data-i18n="nextTipBtn">
+                    🔄 NEXT AI TIP
+                </button>
+            </div>
+
+            <div id="aiDailyTipsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <!-- Populated dynamically in English or Tamil -->
+            </div>
+        </section>
+
+        <!-- =========================================================
+             5. INTERACTIVE AI GROWTH & BUSINESS COACH CHATBOT ('SHIV PREM AI BOT')
+        ========================================================== -->
+        <section class="comic-card-red rounded-2xl p-4 sm:p-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-700/40">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-crimsonRed border-2 border-posterYellow flex items-center justify-center text-xl shadow-md">
+                        🤖
+                    </div>
+                    <div>
+                        <h2 class="poster-title text-xl sm:text-2xl" data-i18n="botTitle">
+                            SHIV PREM AI BOT — PERSONAL GROWTH &amp; BUSINESS COACH
+                        </h2>
+                        <p class="text-xs muted-text" data-i18n="botSubtitle">
+                            Ask how to clear ₹27L debt, optimize 15–20 days driving + Algo income, or scale Goobro &amp; Money Earth Global
+                        </p>
+                    </div>
+                </div>
+                <button onclick="clearBotChat()" class="text-xs font-mono muted-text hover:text-crimsonRed underline self-start sm:self-auto" data-i18n="clearChatBtn">
+                    Clear Chat
+                </button>
+            </div>
+
+            <!-- Quick Prompt Chips -->
+            <div id="botQuickChips" class="flex flex-wrap gap-2 mb-4">
+                <!-- Populated dynamically in EN/TA -->
+            </div>
+
+            <!-- Chat Messages Window -->
+            <div id="botChatWindow" class="inset-box rounded-xl p-3.5 h-64 overflow-y-auto space-y-3 mb-3">
+                <!-- Populated via JS -->
+            </div>
+
+            <!-- Chat Input Form -->
+            <form onsubmit="handleBotSubmit(event)" class="flex gap-2">
+                <input type="text" id="botUserInput" required placeholder="Ask Shiv Prem AI Bot anything about debt, income, Goobro, or daily growth..." class="flex-1 inset-box rounded-xl px-4 py-2.5 text-xs sm:text-sm focus:outline-none focus:border-posterYellow">
+                <button type="submit" class="bg-crimsonRed hover:bg-red-500 text-white font-poster text-sm px-5 py-2.5 rounded-xl tracking-wider shadow-[3px_3px_0px_#000] transition whitespace-nowrap" data-i18n="sendBtn">
+                    ASK AI ⚡
+                </button>
+            </form>
+        </section>
+
+        <!-- =========================================================
+             6. COMPLETE FINANCIAL & DEBT DESTRUCTION ENGINE (AVALANCHE + CASHFLOW + SWP)
+        ========================================================== -->
+        <section class="space-y-6">
+            
+            <!-- 8-Loan Avalanche Debt Destruction Tracker -->
+            <div class="comic-card rounded-2xl p-4 sm:p-6">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+                    <div>
+                        <span class="bg-crimsonRed text-white font-poster text-xs px-3 py-0.5 rounded uppercase tracking-wider" data-i18n="avalancheBadge">
+                            PHASE 1: AVALANCHE DEBT DESTRUCTION ENGINE (₹27,00,000)
+                        </span>
+                        <h2 class="poster-title text-2xl sm:text-3xl mt-1" data-i18n="avalancheTitle">
+                            8-LOAN PRIORITY PAYOFF TRACKER
+                        </h2>
+                    </div>
+
+                    <!-- Monthly Payoff Counter -->
+                    <div class="inset-box rounded-xl px-4 py-2.5 flex items-center gap-4">
+                        <div>
+                            <div class="text-[10px] font-mono uppercase muted-text" data-i18n="paidThisMonthLabel">Paid This Month</div>
+                            <div id="monthlyPaidStat" class="font-mono text-lg font-extrabold text-emeraldGrowth">₹0</div>
+                        </div>
+                        <div class="border-l border-slate-700/50 pl-4">
+                            <div class="text-[10px] font-mono uppercase muted-text" data-i18n="monthlyTargetLabel">Avalanche Target</div>
+                            <div class="font-mono text-sm font-bold text-amber-500">₹85K – ₹1.5L</div>
+                        </div>
+                        <button onclick="resetMonthlyPaid()" class="text-[10px] font-mono text-crimsonRed underline">Reset</button>
+                    </div>
+                </div>
+
+                <!-- 8 Exact Lenders Grid -->
+                <div id="avalancheDebtGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+
+            <!-- Cashflow Editor (Income vs Essentials) + 2030 SIP & SWP Simulator -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <!-- Left 6 Cols: Monthly Income & Essential Commitments Editor -->
+                <div class="lg:col-span-6 comic-card-green rounded-2xl p-4 sm:p-5 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <span class="bg-emeraldGrowth text-matteBlack font-poster text-[11px] px-2.5 py-0.5 rounded uppercase" data-i18n="cashflowBadge">
+                                MONTHLY CASHFLOW &amp; COMMITMENTS
+                            </span>
+                            <h3 class="poster-title text-xl sm:text-2xl mt-1" data-i18n="cashflowTitle">
+                                INCOME TARGET (₹1.30L) vs ESSENTIALS (₹45K)
+                            </h3>
+                        </div>
+                    </div>
+
+                    <!-- Income Inputs -->
+                    <div class="space-y-2">
+                        <div class="flex justify-between text-xs font-bold text-emeraldGrowth">
+                            <span data-i18n="incomeSectionHeader">Monthly Income Streams</span>
+                            <span id="calcTotalIncome" class="font-mono">₹1,30,000</span>
+                        </div>
+                        <div id="incomeEditorList" class="space-y-2"></div>
+                    </div>
+
+                    <!-- Essential Commitments Inputs -->
+                    <div class="space-y-2 pt-2 border-t border-slate-700/40">
+                        <div class="flex justify-between text-xs font-bold text-amber-500">
+                            <span data-i18n="expenseSectionHeader">Fixed Essential Commitments (Cap: ₹45,000)</span>
+                            <span id="calcTotalExpense" class="font-mono">₹45,000</span>
+                        </div>
+                        <div id="expenseEditorList" class="space-y-2"></div>
+                    </div>
+
+                    <!-- Real-Time Debt Payoff Surplus -->
+                    <div class="inset-box rounded-xl p-3.5 border-2 border-emeraldGrowth/50 flex items-center justify-between">
+                        <div>
+                            <div class="text-xs font-heading uppercase" data-i18n="netSurplusLabel">NET MONTHLY SURPLUS FOR DEBT / SIP</div>
+                            <div id="surplusNote" class="text-[11px] muted-text">Hits ₹85,000/mo Avalanche target!</div>
+                        </div>
+                        <div id="calcNetSurplus" class="font-mono text-2xl font-extrabold text-emeraldGrowth">₹85,000</div>
+                    </div>
+                </div>
+
+                <!-- Right 6 Cols: 2030 SIP Plan & SWP Passive Income Simulator -->
+                <div class="lg:col-span-6 comic-card-yellow rounded-2xl p-4 sm:p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span class="bg-posterYellow text-matteBlack font-poster text-[11px] px-2.5 py-0.5 rounded uppercase" data-i18n="sipSwpBadge">
+                            PHASE 2 (2027–2030): ₹1.30L/MO SIP &amp; SWP SIMULATOR
+                        </span>
+                        <h3 class="poster-title text-xl sm:text-2xl mt-1" data-i18n="sipSwpTitle">
+                            2030 WEALTH ALLOCATION &amp; PASSIVE SWP
+                        </h3>
+
+                        <!-- 4 SIP Funds Grid -->
+                        <div class="grid grid-cols-2 gap-2 mt-3 mb-4 text-xs">
+                            <div class="inset-box p-2.5 rounded-xl flex justify-between items-center">
+                                <span class="font-semibold">Nifty 50 Index</span>
+                                <span class="font-mono font-bold text-emeraldGrowth">₹50,000</span>
+                            </div>
+                            <div class="inset-box p-2.5 rounded-xl flex justify-between items-center">
+                                <span class="font-semibold">Flexi-Cap Fund</span>
+                                <span class="font-mono font-bold text-emeraldGrowth">₹50,000</span>
+                            </div>
+                            <div class="inset-box p-2.5 rounded-xl flex justify-between items-center">
+                                <span class="font-semibold">Direct Stocks</span>
+                                <span class="font-mono font-bold text-amber-500">₹20,000</span>
+                            </div>
+                            <div class="inset-box p-2.5 rounded-xl flex justify-between items-center">
+                                <span class="font-semibold">Gold ETF / FD</span>
+                                <span class="font-mono font-bold text-amber-500">₹10,000</span>
+                            </div>
+                        </div>
+
+                        <!-- Interactive SWP Sliders -->
+                        <div class="inset-box p-3.5 rounded-xl space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="font-heading text-xs uppercase text-amber-500" data-i18n="swpSimHeader">SWP FREEDOM SIMULATOR (₹75L ➔ ₹45K/MO)</span>
+                                <button onclick="resetSwpDefault()" class="text-[10px] font-mono muted-text hover:text-amber-500 underline">Default</button>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <div class="flex justify-between text-[11px] mb-1">
+                                        <span class="muted-text" data-i18n="corpusLabel">Corpus</span>
+                                        <span id="swpCorpusTxt" class="font-mono font-bold text-amber-500">₹75,00,000</span>
+                                    </div>
+                                    <input type="range" id="swpCorpusIn" min="1000000" max="25000000" step="500000" value="7500000" oninput="computeSwp()" class="w-full">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-[11px] mb-1">
+                                        <span class="muted-text" data-i18n="monthlySwpLabel">Monthly SWP</span>
+                                        <span id="swpMonthTxt" class="font-mono font-bold text-emeraldGrowth">₹45,000</span>
+                                    </div>
+                                    <input type="range" id="swpMonthIn" min="10000" max="150000" step="5000" value="45000" oninput="computeSwp()" class="w-full">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-2 pt-2 border-t border-slate-700/40 text-center">
+                                <div>
+                                    <div class="text-[10px] font-mono muted-text">INVESTED</div>
+                                    <div id="swpResInv" class="font-mono text-xs sm:text-sm font-bold">₹75,00,000</div>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] font-mono text-amber-500">25Y WITHDRAWN</div>
+                                    <div id="swpResWith" class="font-mono text-xs sm:text-sm font-bold text-amber-500">₹1,35,00,000</div>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] font-mono text-emeraldGrowth">FINAL VALUE</div>
+                                    <div id="swpResFinal" class="font-mono text-xs sm:text-sm font-bold text-emeraldGrowth">₹1,04,58,971</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
     </div>
 
-    <div id="tab-roadmap" class="tab-content">
-        <div class="section-title">🎯 Next 5-Years Systematic Roadmap (2026–2030)</div>
-        <div class="debt-item"><span><b>2026:</b> Debt Clear & Algo System Stable</span><span style="color:var(--accent-green)">In Progress</span></div>
-        <div class="debt-item"><span><b>2027:</b> Dubai Reg & Coimbatore Office</span><span style="color:var(--text-muted)">Planned</span></div>
-        <div class="debt-item"><span><b>2028:</b> Tenkasi Farm House (5-10 Acres)</span><span style="color:var(--text-muted)">Vision</span></div>
-        <div class="debt-item"><span><b>2029:</b> Mercedes Benz / EV & Foundation</span><span style="color:var(--text-muted)">Target</span></div>
-        <div class="debt-item"><span><b>2030:</b> ₹5-10 Cr Wealth & Monthly 5L-10L</span><span style="color:var(--accent-yellow)">Ultimate Goal</span></div>
-        <p style="font-size: 11px; color: var(--text-muted); margin-top: 12px; line-height: 1.4;">
-            ✨ <b>AI Master Vision:</b> Tenkasi 5-10 acre farm house, Shiv Rudra Foundation, Mercedes E220d/Mahindra EV, and scaling Money Earth Global to 5-10 Cr net worth by 2030.
-        </p>
-    </div>
+    <!-- JavaScript Application Engine -->
+    <script>
+        // --- 1. BILINGUAL DICTIONARY (ENGLISH & TAMIL) ---
+        const i18n = {
+            en: {
+                lifeEquationBadge: '⚡ “YOUR LIFE DIDN’T BREAK. IT REVEALED A FORMULA.”',
+                heroSubtitle: 'SYSTEM BUILDER (2026)',
+                heroBio: 'B.Tech Biotech • Coimbatore & Tenkasi • Father of சிவருத்ரா • Money Earth Global & Goobro Founder',
+                debtLabel: 'Remaining Debt',
+                targetLabel: '2030 Target',
+                netWorthLabel: 'Net Worth',
+                journeyProgressTitle: '2025 ➔ 2030 WEALTH SWING',
+                sipAssetsLabel: 'Assets / SIP (₹):',
+                leftGraphBadge: 'LEFT GRAPH • PERSONAL EVOLUTION (1993–2030+)',
+                leftGraphTitle: 'PERSONAL GROWTH & LIFE EQUATION',
+                tapNodeHint: 'Tap Node ●',
+                rightGraphBadge: 'RIGHT GRAPH • -₹27L DEBT ➔ +₹1 CRORE WEALTH',
+                rightGraphTitle: 'WEALTH GROWTH & DEBT DESTRUCTION CURVE',
+                aiStripTitle: 'AI DAILY SUGGESTION & IMPROVEMENT ANALYSIS',
+                aiStripSub: 'Real-time analysis of your ₹27L debt, ₹1.25L+ cashflow target & daily execution',
+                nextTipBtn: '🔄 NEXT AI TIP',
+                botTitle: 'SHIV PREM AI BOT — PERSONAL GROWTH & BUSINESS COACH',
+                botSubtitle: 'Ask how to clear ₹27L debt, optimize 15–20 days driving + Algo income, or scale Goobro & Money Earth Global',
+                clearChatBtn: 'Clear Chat',
+                sendBtn: 'ASK AI ⚡',
+                avalancheBadge: 'PHASE 1: AVALANCHE DEBT DESTRUCTION ENGINE (₹27,00,000)',
+                avalancheTitle: '8-LOAN PRIORITY PAYOFF TRACKER',
+                paidThisMonthLabel: 'Paid This Month',
+                monthlyTargetLabel: 'Avalanche Target',
+                cashflowBadge: 'MONTHLY CASHFLOW & COMMITMENTS',
+                cashflowTitle: 'INCOME TARGET (₹1.30L) vs ESSENTIALS (₹45K)',
+                incomeSectionHeader: 'Monthly Income Streams',
+                expenseSectionHeader: 'Fixed Essential Commitments (Cap: ₹45,000)',
+                netSurplusLabel: 'NET MONTHLY SURPLUS FOR DEBT / SIP',
+                sipSwpBadge: 'PHASE 2 (2027–2030): ₹1.30L/MO SIP & SWP SIMULATOR',
+                sipSwpTitle: '2030 WEALTH ALLOCATION & PASSIVE SWP',
+                swpSimHeader: 'SWP FREEDOM SIMULATOR (₹75L ➔ ₹45K/MO)',
+                corpusLabel: 'Corpus',
+                monthlySwpLabel: 'Monthly SWP',
+                botPlaceholder: 'Ask Shiv Prem AI Bot how to improve income, clear debt, or scale Goobro...'
+            },
+            ta: {
+                lifeEquationBadge: '⚡ “உங்கள் வாழ்க்கை உடையவில்லை — அது ஒரு சூத்திரத்தை வெளிப்படுத்தியது.”',
+                heroSubtitle: 'சிஸ்டம் பில்டர் (2026)',
+                heroBio: 'B.Tech பயோடெக் • கோயம்புத்தூர் & தென்காசி • சிவருத்ராவின் தந்தை • Money Earth Global & Goobro நிறுவனர்',
+                debtLabel: 'மீதமுள்ள கடன்',
+                targetLabel: '2030 இலக்கு',
+                netWorthLabel: 'நிகர சொத்து',
+                journeyProgressTitle: '2025 ➔ 2030 செல்வ வளர்ச்சிப் பாதை',
+                sipAssetsLabel: 'சேமிப்பு / SIP (₹):',
+                leftGraphBadge: 'இடது கிராப் • தனிப்பட்ட வளர்ச்சி (1993–2030+)',
+                leftGraphTitle: 'தனிப்பட்ட வளர்ச்சி & வாழ்க்கை சூத்திரம்',
+                tapNodeHint: 'புள்ளியைத் தொடவும் ●',
+                rightGraphBadge: 'வலது கிராப் • -₹27L கடன் ➔ +₹1 கோடி செல்வம்',
+                rightGraphTitle: 'செல்வ வளர்ச்சி & கடன் ஒழிப்பு வரைபடம்',
+                aiStripTitle: 'AI தினசரி ஆலோசனை & முன்னேற்றப் பகுப்பாய்வு',
+                aiStripSub: 'உங்கள் ₹27L கடன், ₹1.30L மாத வருமான இலக்கு மற்றும் தினசரி செயல்பாடுகளின் நேரடி AI ஆய்வு',
+                nextTipBtn: '🔄 அடுத்த AI டிப்',
+                botTitle: 'SHIV PREM AI பாட் — தனிப்பட்ட வளர்ச்சி & பிசினஸ் கோச்',
+                botSubtitle: '₹27L கடன் அடைப்பு, ஆக்டிங் டிரைவர் + அல்கோ வருமானம், Goobro & Money Earth Global வளர்ச்சி பற்றி கேளுங்கள்',
+                clearChatBtn: 'சாட்டை அழி',
+                sendBtn: 'கேள் AI ⚡',
+                avalancheBadge: 'கட்டம் 1: AVALANCHE கடன் ஒழிப்பு இயந்திரம் (₹27,00,000)',
+                avalancheTitle: '8 கடன்கள் முன்னுரிமை அடைப்பு பட்டியல்',
+                paidThisMonthLabel: 'இந்த மாதம் அடைத்தது',
+                monthlyTargetLabel: 'மாதாந்திர இலக்கு',
+                cashflowBadge: 'மாதாந்திர வருமானம் & குடும்பச் செலவுகள்',
+                cashflowTitle: 'வருமான இலக்கு (₹1.30L) vs அடிப்படை செலவு (₹45K)',
+                incomeSectionHeader: 'மாதாந்திர வருமான வழிகள்',
+                expenseSectionHeader: 'நிலையான குடும்ப & அத்தியாவசிய செலவுகள் (₹45,000)',
+                netSurplusLabel: 'கடன் அடைப்பு / SIP-க்கான நிகர உபரி',
+                sipSwpBadge: 'கட்டம் 2 (2027–2030): ₹1.30L/மாதம் SIP & SWP கால்குலேட்டர்',
+                sipSwpTitle: '2030 செல்வப் பங்கீடு & நிரந்தர SWP வருமானம்',
+                swpSimHeader: 'SWP ஓய்வூதிய சிமுலேட்டர் (₹75L ➔ ₹45K/மாதம்)',
+                corpusLabel: 'முதலீடு',
+                monthlySwpLabel: 'மாத SWP வருமானம்',
+                botPlaceholder: 'கடன் அடைப்பு, வருமான உயர்வு அல்லது Goobro பிசினஸ் பற்றி AI பாட்டிடம் கேளுங்கள்...'
+            }
+        };
 
-    <div id="tab-ai" class="tab-content">
-        <div class="section-title">💬 Shiv Prem AI Assistant Bot</div>
-        <div id="chatBox" style="background:var(--border-color); padding:10px; border-radius:8px; height:180px; overflow-y:auto; font-size:12px; margin-bottom:10px; display:flex; flex-direction:column; gap:8px;">
-            <div style="background:rgba(250,204,21,0.2); padding:8px; border-radius:6px; align-self:flex-start;">
-                🤖 <b>AI Bot:</b> வணக்கம் சிவ்பிரேம்! உங்கள் அல்கோ டிரேடிங், கடன் ஒழிப்பு மற்றும் தென்காசி ஃபார்ம் ஹவுஸ் கனவு பற்றி என்ன விவாதிக்க வேண்டும்?
-            </div>
-        </div>
-        <input type="text" id="userMsg" placeholder="Ask AI anything..." style="width:100%; padding:8px; background:var(--border-color); border:1px solid var(--text-muted); color:var(--text-main); border-radius:6px; font-size:12px;">
-        <button class="btn" onclick="sendAiMessage()">Send to AI Bot</button>
-    </div>
+        // --- 2. PERSONAL GROWTH TIMELINE NODES (1993 - 2030+) ---
+        const personalNodes = [
+            { id: 'n1', cx: 48, cy: 182, color: '#22c55e', year: '1993 (Age 0)', titleEn: 'Birth & Grounded Roots — Tenkasi', titleTa: 'பிறப்பு & வேர்கள் — தென்காசி', descEn: 'Born to Govt Teacher mother & Retired Army father. Learned discipline, honesty & grounded values.', descTa: 'அரசு ஆசிரியை அம்மா & முன்னாள் ராணுவ வீரர் அப்பா. ஒழுக்கம் மற்றும் நேர்மையான அடித்தளம்.' },
+            { id: 'n2', cx: 95, cy: 165, color: '#22c55e', year: '1998–2010 (Age 5–17)', titleEn: 'Schooling & High Adaptability', titleTa: 'பள்ளிப் பருவம் & தகவமைப்புத் திறன்', descEn: 'Tamil & English medium across multiple schools built sharp observation & mental flexibility.', descTa: 'பல பள்ளிகளில் தமிழ் & ஆங்கில வழிக் கல்வி — சூழலுக்கு ஏற்ப மாறும் திறன் வளர்ந்தது.' },
+            { id: 'n3', cx: 142, cy: 150, color: '#22c55e', year: '2011–2015 (Age 18–22)', titleEn: 'B.Tech Biotechnology (2015)', titleTa: 'B.Tech பயோடெக்னாலஜி பட்டப்படிப்பு', descEn: 'Developed scientific thinking, structured hypothesis testing & analytical problem solving.', descTa: 'அறிவியல் சிந்தனை, பகுப்பாய்வு மற்றும் கட்டமைக்கப்பட்ட சிக்கல் தீர்க்கும் திறன்.' },
+            { id: 'n4', cx: 188, cy: 138, color: '#facc15', year: '2015–2017 (Age 22–23)', titleEn: 'Abroad Dream & Ground Hustle', titleTa: 'வெளிநாட்டுக் கனவு & கடின உழைப்பு', descEn: 'IELTS prep, Domino’s Pizza delivery, medical coding & studio work. Lesson: Reality > Fantasy.', descTa: 'IELTS, Domino’s டெலிவரி, மெடிக்கல் கோடிங் & ஸ்டுடியோ வேலை. பாடம்: Reality > Fantasy.' },
+            { id: 'n5', cx: 235, cy: 120, color: '#22c55e', year: '2017–2020 (Age 24–27)', titleEn: 'Business Exploration & Sivakasi Legacy', titleTa: 'தொழில் முயற்சிகள் & சிவகாசி அனுபவம்', descEn: 'Launched Goobro (Coimbatore), Obroo grocery app, events & learned cashflow at Maruti Publications.', descTa: 'Goobro, Obroo ஆப், ஈவென்ட்ஸ் மற்றும் தாத்தாவுடன் சிவகாசி Maruti Publications தொழில் அனுபவம்.' },
+            { id: 'n6', cx: 282, cy: 166, color: '#ef4444', year: '2020–2022 (Age 27–29)', titleEn: 'COVID Collapse & Tiruvannamalai Awakening', titleTa: 'கொரோனா வீழ்ச்சி & ஆன்மீக விழிப்புணர்வு', descEn: '₹10–20L business loss, Domino’s/Rapido delivery survival, and deep spiritual awakening in Tiruvannamalai.', descTa: '₹10–20L இழப்பு, Rapido/Domino’s வேலை, மற்றும் திருவண்ணாமலை ஆன்மீக அமைதி. பாடம்: Life needs system.' },
+            { id: 'n7', cx: 328, cy: 136, color: '#22c55e', year: '2023 (Age 30)', titleEn: 'Bounce Back, Marriage & Investing Start', titleTa: 'மீண்டெழுதல், திருமணம் & முதலீட்டுத் தொடக்கம்', descEn: 'Marriage, spiritual discipline routine, Demat opening & shift to Small Investor mindset.', descTa: 'திருமணம், ஆன்மீக ஒழுக்கம், Demat கணக்கு மற்றும் சிறு முதலீட்டாளர் அடையாளம்.' },
+            { id: 'n8', cx: 372, cy: 148, color: '#ef4444', year: '2024 (Age 31)', titleEn: 'Trading Reality Check & ₹27L Debt Wake-Up', titleTa: 'டிரேடிங் பாடம் & ₹27L கடன் விழிப்புணர்வு', descEn: '₹2–3L intraday loss + ₹15L Gold Loan & ₹27L total debt. Shift: Gambler ❌ ➔ System Learner ✅.', descTa: 'இன்ட்ராடே இழப்பு + ₹15L நகைக்கடன் & மொத்த ₹27L கடன். மாற்றம்: Gambler ❌ ➔ System Learner ✅.' },
+            { id: 'n9', cx: 418, cy: 108, color: '#facc15', year: '2025–2026 (Age 32–33 NOW)', titleEn: 'Son சிவருத்ரா & System Builder Breakout', titleTa: 'மகன் சிவருத்ரா & சிஸ்டம் பில்டர் நிலை (இப்போது)', descEn: 'Son born (2025). Stopped day trading ❌; active Coimbatore driving + Goobro + safe Swing/IPO + Prem Diary.', descTa: 'மகன் சிவருத்ரா பிறப்பு. டே டிரேடிங் நிறுத்தம்; ஆக்டிங் டிரைவர் + Goobro + பாதுகாப்பான Swing/IPO + Prem Diary.' },
+            { id: 'n10', cx: 495, cy: 36, color: '#22c55e', year: '2027–2030+ (Age 35+)', titleEn: '₹1 Crore Wealth, Shiv Group & Foundation', titleTa: '₹1 கோடி செல்வம், Shiv Group & அறக்கட்டளை', descEn: 'Debt-free by 2026 end, ₹1Cr+ corpus by 2030, Architecture & Shiv Foundation in Tenkasi.', descTa: '2026 இறுதியில் கடனில்லா வாழ்க்கை, 2030-ல் ₹1 கோடி+, தென்காசியில் Shiv Foundation & Architecture.' }
+        ];
 
-    <div class="ai-float-btn" onclick="openAiTab()" title="Chat with AI">🤖</div>
+        // --- 3. MASTER APPLICATION STATE ---
+        const defaultState = {
+            lang: 'en',
+            theme: 'dark',
+            selectedNodeId: 'n9',
+            currentAssets: 0,
+            monthlyPaid: 0,
+            aiTipIdx: 0,
+            // Exact 8 Loans from Portfolio (Total ₹22,70,000 listed + ₹4,30,000 Gold/Interest balance = ₹27,00,000 exact)
+            debts: [
+                { id: 'd1', lender: 'Gold Loan', total: 1500000, remaining: 1500000, priority: 'Very High', tagEn: 'Priority #1 • Secured', tagTa: 'முன்னுரிமை #1 • நகைக்கடன்' },
+                { id: 'd2', lender: 'Marutheasan', total: 400000, remaining: 400000, priority: 'Very High', tagEn: 'Priority #2 • Private', tagTa: 'முன்னுரிமை #2 • தனிநபர் கடன்' },
+                { id: 'd3', lender: 'IOB Bank', total: 200000, remaining: 200000, priority: 'Medium', tagEn: 'Priority #3 • Bank Loan', tagTa: 'முன்னுரிமை #3 • வங்கிக் கடன்' },
+                { id: 'd4', lender: 'Canara Bank', total: 40000, remaining: 40000, priority: 'Low', tagEn: 'Quick Snowball #4', tagTa: 'சிறு கடன் #4' },
+                { id: 'd5', lender: 'Bajaj Finance', total: 30000, remaining: 30000, priority: 'Low', tagEn: 'Consumer EMI #5', tagTa: 'நுகர்வோர் EMI #5' },
+                { id: 'd6', lender: 'HDFC Bank', total: 30000, remaining: 30000, priority: 'Low', tagEn: 'Bank Credit #6', tagTa: 'வங்கி கிரெடிட் #6' },
+                { id: 'd7', lender: 'CHOLA', total: 30000, remaining: 30000, priority: 'Low', tagEn: 'Auto EMI #7', tagTa: 'வாகன EMI #7' },
+                { id: 'd8', lender: 'KVB Bank (+Buffer)', total: 450000, remaining: 450000, priority: 'Medium', tagEn: 'KVB ₹20K + Interest Pool', tagTa: 'KVB ₹20K + வட்டி இருப்பு' }
+            ],
+            incomes: [
+                { id: 'i1', nameEn: 'Primary Job / Active Driving (15–20 Days/Mo)', nameTa: 'முதன்மை வேலை / ஆக்டிங் டிரைவர் (15–20 நாட்கள்)', amount: 100000 },
+                { id: 'i2', nameEn: 'Side Hustle (Goobro / Safe Swing / Freelance)', nameTa: 'கூடுதல் வருமானம் (Goobro / பாதுகாப்பான Swing)', amount: 30000 }
+            ],
+            expenses: [
+                { id: 'e1', nameEn: 'Rent & Utilities (Coimbatore)', nameTa: 'அறை வாடகை & மின்சாரம் (கோவை)', amount: 15000 },
+                { id: 'e2', nameEn: 'Food & Groceries', nameTa: 'உணவு & மளிகை', amount: 10000 },
+                { id: 'e3', nameEn: 'Family / Parents & Tenkasi Support', nameTa: 'குடும்பம் / பெற்றோர் & தென்காசி ஆதரவு', amount: 10000 },
+                { id: 'e4', nameEn: 'Transport & Mobile Recharge', nameTa: 'போக்குவரத்து & மொபைல் ரீசார்ஜ்', amount: 5000 },
+                { id: 'e5', nameEn: 'Health & Other Basics', nameTa: 'ஆரோக்கியம் & இதர அடிப்படைகள்', amount: 5000 }
+            ],
+            chatHistory: [
+                {
+                    sender: 'ai',
+                    textEn: 'Vanakkam Shiv Prem! 🙏 I am your AI Growth & Wealth Coach. Your life equation is clear: System > Speed. Ask me how to crush your ₹27L debt faster, optimize your 15–20 days driving + Goobro schedule, or scale toward ₹1 Crore by 2030!',
+                    textTa: 'வணக்கம் சிவ்பிரேம்! 🙏 நான் உங்கள் AI வளர்ச்சி & செல்வ வழிகாட்டி. உங்கள் வாழ்க்கை சூத்திரம் தெளிவாக உள்ளது: System > Speed. ₹27L கடனை விரைவாக அடைப்பது, 15–20 நாட்கள் டிரைவிங் + Goobro வருமானத்தை உயர்த்துவது அல்லது 2030-க்குள் ₹1 கோடி இலக்கை அடைவது பற்றி என்னிடம் கேளுங்கள்!'
+                }
+            ]
+        };
 
-    <div id="graphModal" class="modal">
-        <div class="modal-content">
-            <h3 id="modalTitle">Edit Graph Data</h3>
-            <p id="modalDesc" style="font-size:12px; color:var(--text-muted); margin-bottom:10px;"></p>
-            <label style="font-size:11px;">Update Level / Percentage:</label>
-            <input type="number" id="graphInputVal" value="75">
-            <button class="btn" onclick="closeGraphModal()">Save & Update Graph</button>
-        </div>
-    </div>
+        let state = JSON.parse(localStorage.getItem('shivPremUnifiedOS_v3')) || JSON.parse(JSON.stringify(defaultState));
 
-    <div class="footer">
-        Money Earth Global & Shiv Rudra Foundation ❤️ (2026)
-    </div>
-</div>
-
-<script>
-    let currentLang = 'ta';
-
-    function switchTab(evt, tabId) {
-        document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-        evt.currentTarget.classList.add('active');
-    }
-
-    function openAiTab() {
-        document.querySelectorAll('.tab-btn')[2].click();
-    }
-
-    function toggleTheme() {
-        const html = document.documentElement;
-        if(html.getAttribute('data-theme') === 'dark') {
-            html.setAttribute('data-theme', 'light');
-        } else {
-            html.setAttribute('data-theme', 'dark');
+        function saveState() {
+            localStorage.setItem('shivPremUnifiedOS_v3', JSON.stringify(state));
+            recalculateMetrics();
         }
-    }
 
-    function toggleLanguage() {
-        currentLang = currentLang === 'ta' ? 'en' : 'ta';
-        document.getElementById('langText').innerText = currentLang === 'ta' ? 'தமிழ் / EN' : 'EN / தமிழ்';
-        if(currentLang === 'en') {
-            document.getElementById('subTitle').innerText = 'Age 33 | System Builder & Wealth Architect (1993-2030+)';
-        } else {
-            document.getElementById('subTitle').innerText = 'Age 33 | சிஸ்டம் பில்டர் & வெல்த் ஆர்க்கிடெக்ட் (1993-2030+)';
+        function formatINR(val) {
+            const n = Number(val || 0);
+            return (n < 0 ? '-' : '') + '₹' + Math.abs(n).toLocaleString('en-IN');
         }
-    }
 
-    function openGraphModal(title, desc) {
-        document.getElementById('modalTitle').innerText = title;
-        document.getElementById('modalDesc').innerText = desc;
-        document.getElementById('graphModal').style.display = 'flex';
-    }
+        function showToast(title, desc) {
+            const t = document.getElementById('comicToast');
+            document.getElementById('toastTitle').innerText = title;
+            document.getElementById('toastDesc').innerText = desc;
+            t.classList.remove('translate-y-28', 'opacity-0');
+            setTimeout(() => t.classList.add('translate-y-28', 'opacity-0'), 2500);
+        }
 
-    function closeGraphModal() {
-        document.getElementById('graphModal').style.display = 'none';
-        alert('Graph level updated successfully! 📊');
-    }
+        // --- 4. LANGUAGE & THEME SWITCHERS ---
+        function setLanguage(lang) {
+            state.lang = lang;
+            document.getElementById('lang-en').className = lang === 'en'
+                ? 'px-3 py-1 rounded-lg text-xs font-bold bg-posterYellow text-matteBlack transition'
+                : 'px-3 py-1 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition';
+            document.getElementById('lang-ta').className = lang === 'ta'
+                ? 'px-3 py-1 rounded-lg text-xs font-bold bg-posterYellow text-matteBlack transition'
+                : 'px-3 py-1 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition';
 
-    function sendAiMessage() {
-        const input = document.getElementById('userMsg');
-        const chatBox = document.getElementById('chatBox');
-        if(!input.value.trim()) return;
+            const dict = i18n[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.innerText = dict[key];
+            });
+            document.getElementById('botUserInput').placeholder = dict.botPlaceholder;
 
-        chatBox.innerHTML += `<div style="background:rgba(34,197,94,0.2); padding:8px; border-radius:6px; align-self:flex-end;">👤 <b>You:</b> ${input.value}</div>`;
-        
-        setTimeout(() => {
-            chatBox.innerHTML += `<div style="background:rgba(250,204,21,0.2); padding:8px; border-radius:6px; align-self:flex-start;">🤖 <b>AI Bot:</b> மிகச்சரியான கேள்வி சிவ்பிரேம்! உங்கள் இலக்கை அடைய அல்கோ டிரேடிங் ஆட்டோமேஷனைத் தொடர்ந்து மேம்படுத்துங்கள். 2030-க்குள் தென்காசி 10 ஏக்கர் மற்றும் ஃபார்ம் ஹவுஸ் இலக்கை நாம் நிச்சயம் அடைவோம்! 🚀</div>`;
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }, 600);
+            renderPersonalGraphNodes();
+            renderAiDailyTips();
+            renderBotChips();
+            renderBotChat();
+            renderDebtGrid();
+            renderCashflowInputs();
+            saveState();
+        }
 
-        input.value = '';
-        chatBox.scrollTop = chatBox.scrollHeight;
-    }
-</script>
+        function applyTheme() {
+            const htmlEl = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            const label = document.getElementById('themeLabel');
+            if (state.theme === 'dark') {
+                htmlEl.classList.add('dark');
+                icon.innerText = '☀️';
+                label.innerText = state.lang === 'ta' ? 'ஒயிட் தீம்' : 'White Mode';
+            } else {
+                htmlEl.classList.remove('dark');
+                icon.innerText = '🌙';
+                label.innerText = state.lang === 'ta' ? 'டார்க் தீம்' : 'Dark Mode';
+            }
+        }
 
+        function toggleThemeMode() {
+            state.theme = state.theme === 'dark' ? 'light' : 'dark';
+            applyTheme();
+            saveState();
+        }
+
+        // --- 5. LEFT GRAPH: PERSONAL GROWTH INTERACTIVE NODES ---
+        function renderPersonalGraphNodes() {
+            const group = document.getElementById('personalNodesGroup');
+            group.innerHTML = '';
+
+            personalNodes.forEach(node => {
+                const active = node.id === state.selectedNodeId;
+                const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                c.setAttribute('cx', node.cx);
+                c.setAttribute('cy', node.cy);
+                c.setAttribute('r', active ? '8.5' : '5.5');
+                c.setAttribute('fill', active ? '#ffffff' : node.color);
+                c.setAttribute('stroke', active ? '#ef4444' : '#090a0f');
+                c.setAttribute('stroke-width', '2.5');
+                c.style.cursor = 'pointer';
+                c.onclick = () => {
+                    state.selectedNodeId = node.id;
+                    saveState();
+                    renderPersonalGraphNodes();
+                };
+                group.appendChild(c);
+            });
+
+            const activeNode = personalNodes.find(n => n.id === state.selectedNodeId) || personalNodes[8];
+            const isTa = state.lang === 'ta';
+            document.getElementById('lifeInsightCard').innerHTML = `
+                <div class="flex items-center justify-between mb-1">
+                    <span class="font-mono text-[11px] font-bold text-amber-500">${activeNode.year}</span>
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-posterYellow/20 text-amber-500 font-bold">LIFE EQUATION NODE</span>
+                </div>
+                <div class="font-heading text-base uppercase tracking-wide">${isTa ? activeNode.titleTa : activeNode.titleEn}</div>
+                <p class="text-xs muted-text mt-1 leading-relaxed">${isTa ? activeNode.descTa : activeNode.descEn}</p>
+            `;
+        }
+
+        // --- 6. RIGHT GRAPH: DYNAMIC WEALTH & DEBT TRAJECTORY ---
+        function renderWealthGraph(remDebt, assets) {
+            const layer = document.getElementById('wealthSvgDynamicLayer');
+            layer.innerHTML = '';
+
+            // Map Net Worth (-27L to +1Cr) onto SVG Y-coordinates:
+            // +1 Cr (100L) => Y = 32
+            // +70L => Y = 72
+            // +40L => Y = 112
+            // ₹0 => Y = 150
+            // -27L => Y = 192
+            const netWorth = assets - remDebt;
+            function mapNwToY(nw) {
+                if (nw >= 0) {
+                    const ratio = Math.min(1, nw / 10000000);
+                    return 150 - (ratio * 118);
+                } else {
+                    const ratio = Math.min(1, Math.abs(nw) / 2700000);
+                    return 150 + (ratio * 42);
+                }
+            }
+
+            const y2025 = 192; // Starting -27L
+            const yNow = mapNwToY(netWorth); // Live 2026 position!
+            const y2027 = 126; // +20L
+            const y2028 = 112; // +40L
+            const y2029 = 72;  // +70L
+            const y2030 = 32;  // +1Cr
+
+            const points = `75,${y2025} 155,${yNow} 240,${y2027} 325,${y2028} 410,${y2029} 495,${y2030}`;
+            const areaPoints = `75,195 ${points} 495,195`;
+
+            layer.innerHTML = `
+                <defs>
+                    <linearGradient id="wealthGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#22c55e" stop-opacity="0.32"/>
+                        <stop offset="100%" stop-color="#22c55e" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+                <polygon points="${areaPoints}" fill="url(#wealthGrad)"/>
+                <polyline points="${points}" fill="none" stroke="#22c55e" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- 2025 Start Dot -->
+                <circle cx="75" cy="${y2025}" r="5" fill="#ef4444" stroke="#090a0f" stroke-width="2"/>
+                <!-- Live 2026 Pulsing Position Dot -->
+                <circle cx="155" cy="${yNow}" r="7.5" fill="#facc15" stroke="#090a0f" stroke-width="2.5"/>
+                <text x="155" y="${yNow - 11}" fill="#facc15" font-family="JetBrains Mono, monospace" font-size="9.5" font-weight="bold" text-anchor="middle">${formatINR(netWorth)}</text>
+                <!-- Future Milestone Dots -->
+                <circle cx="240" cy="${y2027}" r="4.5" fill="#22c55e"/>
+                <circle cx="325" cy="${y2028}" r="4.5" fill="#22c55e"/>
+                <circle cx="410" cy="${y2029}" r="4.5" fill="#22c55e"/>
+                <circle cx="495" cy="${y2030}" r="6" fill="#22c55e" stroke="#ffffff" stroke-width="2"/>
+            `;
+        }
+
+        // --- 7. SHORT AI DAILY SUGGESTION & ANALYSIS STRIP ---
+        function renderAiDailyTips() {
+            const isTa = state.lang === 'ta';
+            const remDebt = state.debts.reduce((s, d) => s + Number(d.remaining || 0), 0);
+            const totInc = state.incomes.reduce((s, i) => s + Number(i.amount || 0), 0);
+            const totExp = state.expenses.reduce((s, e) => s + Number(e.amount || 0), 0);
+            const surplus = totInc - totExp;
+            const nextLoan = state.debts.find(d => d.remaining > 0);
+
+            const tips = [
+                {
+                    badgeEn: '⚔️ AVALANCHE PRIORITY',
+                    badgeTa: '⚔️ கடன் ஒழிப்பு முன்னுரிமை',
+                    textEn: nextLoan
+                        ? `Target ${nextLoan.lender} (${formatINR(nextLoan.remaining)}) first with every rupee above your ₹45,000 essentials.`
+                        : `Zero debt achieved! Shift 100% of your ${formatINR(surplus)} monthly surplus into Nifty 50 & Flexi-Cap SIPs.`,
+                    textTa: nextLoan
+                        ? `உங்கள் ₹45,000 அடிப்படை செலவுக்கு மேல் உள்ள ஒவ்வொரு ரூபாயையும் முதலில் ${nextLoan.lender} (${formatINR(nextLoan.remaining)}) கடனை அடைக்கப் பயன்படுத்துங்கள்.`
+                        : `கடன் முழுமையாக முடிந்தது! உங்கள் ${formatINR(surplus)} மாத உபரியை Nifty 50 & Flexi-Cap SIP-களில் முதலீடு செய்யுங்கள்.`
+                },
+                {
+                    badgeEn: '🚗 ACTIVE + GOOBRO ENGINE',
+                    badgeTa: '🚗 டிரைவிங் + GOOBRO வருமானம்',
+                    textEn: `Complete 15–20 active driving days in Coimbatore and push Goobro outstation/night-drop bookings to hit ₹1.30L/mo inflow.`,
+                    textTa: `கோவையில் மாதம் 15–20 நாட்கள் ஆக்டிங் டிரைவிங் மற்றும் Goobro வெளியூர்/இரவு சவாரிகள் மூலம் ₹1.30L மாத வருமான இலக்கை எட்டுங்கள்.`
+                },
+                {
+                    badgeEn: '🛡️ SYSTEM > SPEED RULE',
+                    badgeTa: '🛡️ சிஸ்டம் > வேகம் விதி',
+                    textEn: `Day trading stays OFF ❌. Use Forex demo only, take safe Swing/IPO setups, and log every expense in Prem Diary tonight.`,
+                    textTa: `டே டிரேடிங் வேண்டாம் ❌. Forex டெமோ மட்டும் பயன்படுத்தி, பாதுகாப்பான Swing/IPO மற்றும் தினசரி Prem Diary கணக்கைத் தொடருங்கள்.`
+                },
+                {
+                    badgeEn: '👶 FAMILY & GOLD SHIELD',
+                    badgeTa: '👶 குடும்பம் & நகை பாதுகாப்பு',
+                    textEn: `Ring-fence ₹10K–₹15K for Tenkasi family & son சிவருத்ரா. Never take new EMIs or sell household gold.`,
+                    textTa: `தென்காசி குடும்பம் & மகன் சிவருத்ராவிற்கான ₹10K–₹15K தொகையைத் தனியாக ஒதுக்குங்கள். புதிய EMI அல்லது நகை விற்பனையைத் தவிருங்கள்.`
+                }
+            ];
+
+            const container = document.getElementById('aiDailyTipsContainer');
+            container.innerHTML = '';
+
+            for (let i = 0; i < 3; i++) {
+                const item = tips[(state.aiTipIdx + i) % tips.length];
+                const div = document.createElement('div');
+                div.className = 'inset-box rounded-xl p-3.5 border-l-4 border-l-posterYellow flex flex-col justify-between';
+                div.innerHTML = `
+                    <div class="text-[10px] font-mono font-bold text-amber-500 uppercase mb-1">${isTa ? item.badgeTa : item.badgeEn}</div>
+                    <p class="text-xs leading-relaxed font-medium">${isTa ? item.textTa : item.textEn}</p>
+                `;
+                container.appendChild(div);
+            }
+        }
+
+        function nextAiDailyTip() {
+            state.aiTipIdx = (state.aiTipIdx + 1) % 4;
+            saveState();
+            renderAiDailyTips();
+        }
+
+        // --- 8. INTERACTIVE SHIV PREM AI BOT COACH ---
+        const quickPrompts = [
+            {
+                key: 'debt',
+                labelEn: 'How to clear ₹27L debt faster?',
+                labelTa: '₹27L கடனை வேகமாக அடைப்பது எப்படி?',
+                replyEn: '⚔️ **Avalanche Battle Plan:** Keep essentials strictly at ₹45,000/mo. With ₹1,30,000/mo income, deploy **₹85,000/mo** directly into your #1 high-interest target (**Gold Loan ₹15L** ➔ **Marutheasan ₹4L** ➔ **IOB ₹2L**). Clear small loans (Canara, Bajaj, HDFC, Chola, KVB) using Goobro weekend bonuses and close credit cards immediately!',
+                replyTa: '⚔️ **Avalanche கடன் ஒழிப்புத் திட்டம்:** மாதாந்திர செலவை ₹45,000-க்குள் கட்டுப்படுத்துங்கள். ₹1,30,000 வருமானத்தில் **₹85,000/மாதம்** நேரடியாக அதிக வட்டி கொண்ட **Gold Loan (₹15L)** ➔ **Marutheasan (₹4L)** ➔ **IOB (₹2L)** கடன்களை முதலில் அடியோடு அளியுங்கள். Goobro போனஸ் வருமானத்தில் சிறு கடன்களை முடித்து கிரெடிட் கார்டுகளை மூடுங்கள்!'
+            },
+            {
+                key: 'income',
+                labelEn: 'Optimize Acting Driver + Algo income',
+                labelTa: 'டிரைவிங் + அல்கோ வருமானத்தை உயர்த்துவது எப்படி?',
+                replyEn: '🚗📈 **Dual Cashflow Engine:** Lock 15–20 active driving days/month in Coimbatore (₹25K–₹35K base) to cover rent & Tenkasi family support with zero stress. Keep Forex strictly in **Demo mode**, stop intraday gambling, and focus only on high-probability **Swing, Position & IPO** setups plus **Goobro** direct WhatsApp bookings!',
+                replyTa: '🚗📈 **இரட்டை வருமான இயந்திரம்:** கோவையில் மாதம் 15–20 நாட்கள் ஆக்டிங் டிரைவிங் மூலம் அறை வாடகை & தென்காசி குடும்பச் செலவை பாதுகாப்பாக ஈடுகட்டுங்கள். Forex-ஐ **Demo-வில்** மட்டும் வைத்துவிட்டு, பாதுகாப்பான **Swing, Position, IPO** மற்றும் **Goobro** நேரடி புக்கிங் மூலம் வருமானத்தை உயர்த்துங்கள்!'
+            },
+            {
+                key: 'business',
+                labelEn: 'Scale Goobro & Money Earth Global',
+                labelTa: 'Goobro & Money Earth Global வளர்ச்சி',
+                replyEn: '🚀 **2026–2030 Scale Blueprint:** 1) **Goobro:** Onboard 10 verified drivers in Coimbatore & Tenkasi and promote hourly/outstation packages to car owners. 2) **Money Earth Global:** Document your 4H Supertrend & disciplined risk systems into educational content, preparing your clean track record for 2027 Dubai expansion and **Shiv Foundation (Tenkasi)**!',
+                replyTa: '🚀 **2026–2030 தொழில் வளர்ச்சித் திட்டம்:** 1) **Goobro:** கோவை & தென்காசியில் 10 நம்பகமான டிரைவர்களை இணைத்து கார் உரிமையாளர்களிடம் நேரடியாக விளம்பரப்படுத்துங்கள். 2) **Money Earth Global:** உங்கள் 4H Supertrend மற்றும் ஒழுக்கமான டிரேடிங் முறைகளைக் கல்வி உள்ளடக்கமாக மாற்றி, 2027 துபாய் விரிவாக்கம் & **Shiv Foundation (தென்காசி)** இலக்கை நோக்கி நகருங்கள்!'
+            },
+            {
+                key: 'routine',
+                labelEn: 'Daily System Builder Routine',
+                labelTa: 'தினசரி சிஸ்டம் பில்டர் அட்டவணை',
+                replyEn: '🧘‍♂️ **One Life System Routine:**\n• **Morning:** 20 mins spiritual silence & gratitude (Tiruvannamalai anchor) + check safe Swing/IPO alerts.\n• **Daytime:** Focused driving / Goobro dispatch or skill building.\n• **Night:** Log every rupee in **Prem Diary** and review tomorrow’s top 1 priority. Remember: *System > Speed!*',
+                replyTa: '🧘‍♂️ **தினசரி வாழ்க்கை முறை:**\n• **காலை:** 20 நிமிடம் தியானம் & அமைதி (திருவண்ணாமலை ஆன்மீக பலம்) + பாதுகாப்பான Swing/IPO அலர்ட் சரிபார்ப்பு.\n• **பகல்:** ஆக்டிங் டிரைவிங் / Goobro புக்கிங் மற்றும் திறன் மேம்பாடு.\n• **இரவு:** **Prem Diary**-ல் இன்றைய வரவு-செலவைப் பதிவு செய்து நாளைய இலக்கைத் திட்டமிடுங்கள். *System > Speed!*'
+            }
+        ];
+
+        function renderBotChips() {
+            const container = document.getElementById('botQuickChips');
+            container.innerHTML = '';
+            const isTa = state.lang === 'ta';
+            quickPrompts.forEach(p => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'px-3 py-1.5 rounded-full text-xs font-semibold inset-box hover:border-posterYellow hover:text-amber-500 transition';
+                btn.innerText = isTa ? p.labelTa : p.labelEn;
+                btn.onclick = () => triggerQuickPrompt(p);
+                container.appendChild(btn);
+            });
+        }
+
+        function renderBotChat() {
+            const win = document.getElementById('botChatWindow');
+            win.innerHTML = '';
+            const isTa = state.lang === 'ta';
+
+            state.chatHistory.forEach(msg => {
+                const isUser = msg.sender === 'user';
+                const row = document.createElement('div');
+                row.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+                const text = isUser ? msg.text : (isTa && msg.textTa ? msg.textTa : msg.textEn);
+                row.innerHTML = `
+                    <div class="max-w-[85%] rounded-2xl px-3.5 py-2.5 text-xs sm:text-sm leading-relaxed whitespace-pre-line ${
+                        isUser 
+                            ? 'bg-posterYellow text-matteBlack font-semibold shadow-[3px_3px_0px_#000]' 
+                            : 'bg-slate-800/90 text-slate-100 border border-slate-700'
+                    }">
+                        ${text}
+                    </div>
+                `;
+                win.appendChild(row);
+            });
+            win.scrollTop = win.scrollHeight;
+        }
+
+        function triggerQuickPrompt(promptObj) {
+            const isTa = state.lang === 'ta';
+            state.chatHistory.push({ sender: 'user', text: isTa ? promptObj.labelTa : promptObj.labelEn });
+            state.chatHistory.push({ sender: 'ai', textEn: promptObj.replyEn, textTa: promptObj.replyTa });
+            saveState();
+            renderBotChat();
+        }
+
+        function handleBotSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('botUserInput');
+            const q = input.value.trim();
+            if (!q) return;
+
+            state.chatHistory.push({ sender: 'user', text: q });
+            input.value = '';
+
+            // Intelligent Context-Aware Reply based on Shiv Prem's Data
+            const lower = q.toLowerCase();
+            const remDebt = state.debts.reduce((s, d) => s + Number(d.remaining || 0), 0);
+            const totInc = state.incomes.reduce((s, i) => s + Number(i.amount || 0), 0);
+            const totExp = state.expenses.reduce((s, e) => s + Number(e.amount || 0), 0);
+            const surplus = totInc - totExp;
+
+            let replyEn = '';
+            let replyTa = '';
+
+            if (lower.includes('debt') || lower.includes('loan') || lower.includes('gold') || lower.includes('கடன்')) {
+                replyEn = `⚔️ **Live Debt Analysis:** Your remaining debt is **${formatINR(remDebt)}**. With your current monthly surplus of **${formatINR(surplus)}**, stick strictly to the Avalanche order: crush **Gold Loan** and **Marutheasan** first, say NO to new EMIs, and log every payment in Prem Diary!`;
+                replyTa = `⚔️ **நேரடி கடன் பகுப்பாய்வு:** உங்கள் மீதமுள்ள கடன் **${formatINR(remDebt)}**. தற்போதைய மாத உபரி **${formatINR(surplus)}** மூலம் முதலில் **Gold Loan** மற்றும் **Marutheasan** கடன்களை Avalanche முறையில் அடியோடு அளியுங்கள். புதிய EMI எதையும் எடுக்காதீர்கள்!`;
+            } else if (lower.includes('goobro') || lower.includes('driver') || lower.includes('business') || lower.includes('டிரைவர்')) {
+                replyEn = `🚗 **Goobro & Business Strategy:** Focus on 15–20 active driving days in Coimbatore + direct WhatsApp bookings in Tenkasi. Convert every satisfied car owner into a repeat monthly client, and reinvest profits into debt destruction before scaling to 2027 Dubai!`;
+                replyTa = `🚗 **Goobro & பிசினஸ் வியூகம்:** கோவையில் மாதம் 15–20 நாட்கள் ஆக்டிங் டிரைவிங் மற்றும் தென்காசியில் நேரடி வாட்ஸ்அப் புக்கிங் மூலம் நிலையான வருமானத்தை உறுதி செய்யுங்கள். கிடைக்கும் லாபத்தை முதலில் கடன் அடைப்பிற்குப் பயன்படுத்துங்கள்!`;
+            } else if (lower.includes('trade') || lower.includes('trading') || lower.includes('forex') || lower.includes('algo') || lower.includes('டிரேடிங்')) {
+                replyEn = `📈 **Trading Discipline Guardrail:** Remember 2024’s ₹2–3L lesson: *System > Speed*. Keep Intraday/Options OFF ❌, run Forex strictly in **Demo**, and execute only calm, rule-based **Swing, Position & IPO** setups.`;
+                replyTa = `📈 **டிரேடிங் ஒழுக்க விதி:** 2024-ன் ₹2–3L பாடத்தை நினைவில் கொள்ளுங்கள்: *System > Speed*. இன்ட்ராடே வேண்டாம் ❌; Forex-ஐ **Demo-வில்** மட்டும் வைத்துவிட்டு, பாதுகாப்பான **Swing, Position & IPO** வாய்ப்புகளை மட்டும் எடுங்கள்.`;
+            } else {
+                replyEn = `⚡ **Shiv Prem System Guidance:** You are in the **2026 System Builder Stage (Age 33)**. Keep essentials at **${formatINR(totExp)}**, grow income above **₹1,30,000/mo**, and route **${formatINR(Math.max(0, surplus))}** monthly surplus toward crushing your **${formatINR(remDebt)}** debt so you hit **₹1 Crore+ by 2030**!`;
+                replyTa = `⚡ **சிவ்பிரேம் சிஸ்டம் வழிகாட்டுதல்:** நீங்கள் இப்போது **2026 சிஸ்டம் பில்டர் (வயது 33)** கட்டத்தில் உள்ளீர்கள். செலவை **${formatINR(totExp)}**-க்குள் வைத்து, வருமானத்தை **₹1,30,000+**-ஆக உயர்த்தி, மாதம் **${formatINR(Math.max(0, surplus))}** உபரியைக் கொண்டு **${formatINR(remDebt)}** கடனை அடைத்தால் 2030-ல் **₹1 கோடி+** நிச்சயம்!`;
+            }
+
+            state.chatHistory.push({ sender: 'ai', textEn: replyEn, textTa: replyTa });
+            saveState();
+            renderBotChat();
+        }
+
+        function clearBotChat() {
+            state.chatHistory = [defaultState.chatHistory[0]];
+            saveState();
+            renderBotChat();
+        }
+
+        // --- 9. 8-LOAN AVALANCHE DEBT TRACKER ---
+        function renderDebtGrid() {
+            const grid = document.getElementById('avalancheDebtGrid');
+            grid.innerHTML = '';
+            const isTa = state.lang === 'ta';
+
+            state.debts.forEach((d, idx) => {
+                const paid = Math.max(0, d.total - d.remaining);
+                const pct = d.total > 0 ? Math.min(100, Math.round((paid / d.total) * 100)) : 100;
+                const done = d.remaining <= 0;
+
+                const card = document.createElement('div');
+                card.className = `inset-box rounded-xl p-3.5 flex flex-col justify-between ${done ? 'border-emeraldGrowth' : ''}`;
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between gap-1 mb-1">
+                            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded ${done ? 'bg-emeraldGrowth text-matteBlack' : 'bg-crimsonRed/20 text-crimsonRed'}">
+                                ${done ? '✅ CLEARED' : (isTa ? d.tagTa : d.tagEn)}
+                            </span>
+                        </div>
+                        <div class="font-heading text-base uppercase tracking-wide ${done ? 'line-through muted-text' : ''}">
+                            ${idx + 1}. ${d.lender}
+                        </div>
+                        <div class="flex justify-between items-baseline mt-2 mb-1">
+                            <span class="text-[10px] font-mono muted-text">${pct}%</span>
+                            <span class="font-mono text-sm font-extrabold ${done ? 'text-emeraldGrowth' : 'text-crimsonRed'}">${formatINR(d.remaining)}</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden mb-3">
+                            <div class="h-full ${done ? 'bg-emeraldGrowth' : 'bg-crimsonRed'} transition-all duration-300" style="width: ${pct}%"></div>
+                        </div>
+                    </div>
+                    <div class="flex gap-1.5">
+                        ${!done ? `
+                            <button onclick="payDebtChunk(${idx}, 10000)" class="flex-1 bg-slate-900 hover:bg-posterYellow hover:text-matteBlack text-posterYellow border border-posterYellow/40 py-1 rounded-lg font-mono text-[11px] font-bold transition">-₹10K</button>
+                            <button onclick="payDebtChunk(${idx}, 50000)" class="flex-1 bg-crimsonRed hover:bg-red-500 text-white py-1 rounded-lg font-mono text-[11px] font-bold transition">-₹50K</button>
+                        ` : `<div class="w-full text-center font-poster text-xs text-emeraldGrowth">100% DESTROYED</div>`}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function payDebtChunk(idx, amt) {
+            const debt = state.debts[idx];
+            if (debt.remaining <= 0) return;
+            const actual = Math.min(debt.remaining, amt);
+            debt.remaining -= actual;
+            state.monthlyPaid = Number(state.monthlyPaid || 0) + actual;
+            saveState();
+            renderDebtGrid();
+            renderAiDailyTips();
+            showToast('💥 DEBT DESTROYED!', `Paid ${formatINR(actual)} toward ${debt.lender}!`);
+        }
+
+        function resetMonthlyPaid() {
+            state.monthlyPaid = 0;
+            saveState();
+            showToast('RESET', 'Monthly debt payment counter reset to ₹0.');
+        }
+
+        // --- 10. CASHFLOW & SWP SIMULATOR ---
+        function renderCashflowInputs() {
+            const isTa = state.lang === 'ta';
+            const incList = document.getElementById('incomeEditorList');
+            incList.innerHTML = '';
+            state.incomes.forEach((inc, idx) => {
+                const row = document.createElement('div');
+                row.className = 'inset-box rounded-xl p-2.5 flex items-center justify-between gap-2';
+                row.innerHTML = `
+                    <span class="text-xs font-medium truncate flex-1">${isTa ? inc.nameTa : inc.nameEn}</span>
+                    <input type="number" min="0" step="1000" value="${inc.amount}" onchange="editIncomeVal(${idx}, this.value)" class="w-24 bg-slate-900 text-emeraldGrowth border border-slate-700 rounded-lg px-2 py-1 text-right font-mono text-xs font-bold">
+                `;
+                incList.appendChild(row);
+            });
+
+            const expList = document.getElementById('expenseEditorList');
+            expList.innerHTML = '';
+            state.expenses.forEach((exp, idx) => {
+                const row = document.createElement('div');
+                row.className = 'inset-box rounded-xl p-2.5 flex items-center justify-between gap-2';
+                row.innerHTML = `
+                    <span class="text-xs font-medium truncate flex-1">${isTa ? exp.nameTa : exp.nameEn}</span>
+                    <input type="number" min="0" step="500" value="${exp.amount}" onchange="editExpenseVal(${idx}, this.value)" class="w-24 bg-slate-900 text-posterYellow border border-slate-700 rounded-lg px-2 py-1 text-right font-mono text-xs font-bold">
+                `;
+                expList.appendChild(row);
+            });
+        }
+
+        function editIncomeVal(idx, val) {
+            state.incomes[idx].amount = Math.max(0, Number(val));
+            saveState();
+            renderAiDailyTips();
+        }
+
+        function editExpenseVal(idx, val) {
+            state.expenses[idx].amount = Math.max(0, Number(val));
+            saveState();
+            renderAiDailyTips();
+        }
+
+        function computeSwp() {
+            const P = Number(document.getElementById('swpCorpusIn').value);
+            const W = Number(document.getElementById('swpMonthIn').value);
+            document.getElementById('swpCorpusTxt').innerText = formatINR(P);
+            document.getElementById('swpMonthTxt').innerText = formatINR(W);
+
+            const months = 25 * 12;
+            const r = Math.pow(1.08, 1 / 12) - 1;
+            let bal = P;
+            for (let m = 0; m < months; m++) {
+                bal = (bal - W) * (1 + r);
+            }
+            document.getElementById('swpResInv').innerText = formatINR(P);
+            document.getElementById('swpResWith').innerText = formatINR(W * months);
+            document.getElementById('swpResFinal').innerText = formatINR(Math.max(0, Math.round(bal)));
+        }
+
+        function resetSwpDefault() {
+            document.getElementById('swpCorpusIn').value = 7500000;
+            document.getElementById('swpMonthIn').value = 45000;
+            computeSwp();
+        }
+
+        // --- 11. MASTER METRICS RECALCULATION ---
+        function recalculateMetrics() {
+            const remDebt = state.debts.reduce((s, d) => s + Number(d.remaining || 0), 0);
+            const assets = Number(state.currentAssets || 0);
+            const netWorth = assets - remDebt;
+
+            document.getElementById('topDebtStat').innerText = formatINR(remDebt);
+            document.getElementById('topNetWorthStat').innerText = formatINR(netWorth);
+            document.getElementById('assetsInput').value = assets;
+            document.getElementById('monthlyPaidStat').innerText = formatINR(state.monthlyPaid);
+
+            // Progress Bar (-27L to +1Cr = 1.27 Cr total swing)
+            const pct = Math.max(0, Math.min(100, Math.round(((netWorth + 2700000) / 12700000) * 100)));
+            document.getElementById('nwProgressPct').innerText = `${pct}%`;
+            document.getElementById('nwProgressBar').style.width = `${Math.max(4, pct)}%`;
+
+            // Cashflow Totals
+            const totInc = state.incomes.reduce((s, i) => s + Number(i.amount || 0), 0);
+            const totExp = state.expenses.reduce((s, e) => s + Number(e.amount || 0), 0);
+            const surplus = totInc - totExp;
+
+            document.getElementById('calcTotalIncome').innerText = formatINR(totInc);
+            document.getElementById('calcTotalExpense').innerText = formatINR(totExp);
+            document.getElementById('calcNetSurplus').innerText = formatINR(surplus);
+
+            renderWealthGraph(remDebt, assets);
+        }
+
+        function updateAssetsValue(val) {
+            state.currentAssets = Math.max(0, Number(val));
+            saveState();
+            showToast('ASSETS SYNCED', `Portfolio corpus set to ${formatINR(state.currentAssets)}`);
+        }
+
+        // --- 12. EXPORT & RESET ---
+        function exportJsonSnapshot() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+            const a = document.createElement('a');
+            a.setAttribute("href", dataStr);
+            a.setAttribute("download", "ShivPrem_CommandCenter_2026.json");
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            showToast('EXPORTED', 'Downloaded JSON backup.');
+        }
+
+        function triggerResetFlow() {
+            document.getElementById('resetBtnMain').classList.add('hidden');
+            document.getElementById('resetBtnConfirm').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('resetBtnMain').classList.remove('hidden');
+                document.getElementById('resetBtnConfirm').classList.add('hidden');
+            }, 4000);
+        }
+
+        function confirmHardReset() {
+            localStorage.removeItem('shivPremUnifiedOS_v3');
+            state = JSON.parse(JSON.stringify(defaultState));
+            document.getElementById('resetBtnMain').classList.remove('hidden');
+            document.getElementById('resetBtnConfirm').classList.add('hidden');
+            initDashboard();
+            showToast('RESET COMPLETE', 'All portfolio & life data restored.');
+        }
+
+        // --- INITIALIZE ON LOAD ---
+        function initDashboard() {
+            applyTheme();
+            setLanguage(state.lang || 'en');
+            computeSwp();
+            recalculateMetrics();
+        }
+
+        window.onload = initDashboard;
+    </script>
 </body>
 </html>
