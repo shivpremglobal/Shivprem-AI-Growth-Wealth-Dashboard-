@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ta">
+<html lang="ta" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,49 +14,69 @@
             --accent-green: #22c55e;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
+            --header-bg: linear-gradient(135deg, #180303, #090a0f);
+        }
+        [data-theme="light"] {
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --border-color: #cbd5e1;
+            --accent-red: #dc2626;
+            --accent-yellow: #ca8a04;
+            --accent-green: #16a34a;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --header-bg: linear-gradient(135deg, #fee2e2, #f1f5f9);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-main); padding: 10px; }
-        .container { max-width: 500px; margin: 0 auto; background: var(--card-bg); border-radius: 20px; overflow: hidden; border: 2px solid var(--accent-red); box-shadow: 0 15px 35px rgba(239, 68, 68, 0.3); }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 10px; transition: 0.3s; }
+        .container { max-width: 520px; margin: 0 auto; background: var(--card-bg); border-radius: 20px; overflow: hidden; border: 2px solid var(--accent-red); box-shadow: 0 15px 35px rgba(239, 68, 68, 0.2); }
         
-        .top-bar { display: flex; justify-content: space-between; padding: 10px 15px; background: #000; border-bottom: 1px solid var(--border-color); font-size: 12px; }
-        .toggle-btn { background: var(--border-color); color: #fff; border: none; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .top-bar { display: flex; justify-content: space-between; padding: 10px 15px; background: rgba(0,0,0,0.2); border-bottom: 1px solid var(--border-color); font-size: 12px; }
+        .toggle-btn { background: var(--border-color); color: var(--text-main); border: none; padding: 5px 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
 
-        .header { background: linear-gradient(135deg, #180303, #090a0f); padding: 20px; text-align: center; border-bottom: 2px solid var(--accent-red); }
+        .header { background: var(--header-bg); padding: 20px; text-align: center; border-bottom: 2px solid var(--accent-red); }
         .mascot-avatar { width: 80px; height: 80px; margin: 0 auto 10px; border-radius: 50%; border: 3px solid var(--accent-yellow); background: #ef4444; display: flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 0 15px rgba(250, 204, 21, 0.5); }
-        .header h1 { color: var(--accent-yellow); font-size: 17px; font-weight: bold; letter-spacing: 0.5px; }
+        .header h1 { color: var(--accent-yellow); font-size: 18px; font-weight: bold; letter-spacing: 0.5px; }
         .header p { color: var(--text-muted); font-size: 11px; margin-top: 3px; }
 
-        .tabs { display: flex; background: var(--border-color); }
-        .tab-btn { flex: 1; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; color: var(--text-muted); background: none; border: none; cursor: pointer; }
+        .tabs { display: flex; background: var(--border-color); overflow-x: auto; }
+        .tab-btn { flex: 1; padding: 10px; text-align: center; font-size: 12px; font-weight: bold; color: var(--text-muted); background: none; border: none; cursor: pointer; white-space: nowrap; }
         .tab-btn.active { color: var(--accent-yellow); background: var(--card-bg); border-bottom: 2px solid var(--accent-yellow); }
 
         .tab-content { display: none; padding: 15px; }
         .tab-content.active { display: block; }
 
-        .section-title { font-size: 14px; color: var(--accent-yellow); margin-bottom: 10px; font-weight: bold; }
+        .section-title { font-size: 14px; color: var(--accent-yellow); margin-bottom: 10px; font-weight: bold; display: flex; align-items: center; gap: 8px; }
 
         .graphs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; }
-        .graph-card { background: #1a2234; padding: 10px; border-radius: 10px; text-align: center; cursor: pointer; border: 1px solid var(--border-color); }
+        .graph-card { background: var(--border-color); padding: 10px; border-radius: 10px; text-align: center; cursor: pointer; border: 1px solid transparent; transition: 0.2s; }
+        .graph-card:hover { border-color: var(--accent-yellow); }
         .graph-card h4 { font-size: 11px; color: var(--text-muted); margin-bottom: 5px; }
-        .mini-graph { height: 50px; background: #000; border-radius: 6px; display: flex; align-items: flex-end; justify-content: space-around; padding: 5px; }
-        .bar { width: 10px; background: var(--accent-green); border-radius: 2px 2px 0 0; }
+        .mini-graph { height: 60px; background: #000; border-radius: 6px; display: flex; align-items: flex-end; justify-content: space-around; padding: 5px; }
+        .bar { width: 12px; background: var(--accent-green); border-radius: 3px 3px 0 0; }
         .bar.red { background: var(--accent-red); }
         .bar.yellow { background: var(--accent-yellow); }
 
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-        .stat-card { background: #1a2234; padding: 10px; border-radius: 10px; text-align: center; border: 1px solid var(--border-color); }
+        .stat-card { background: var(--border-color); padding: 10px; border-radius: 10px; text-align: center; }
         .stat-label { font-size: 10px; color: var(--text-muted); }
         .stat-val { font-size: 14px; font-weight: bold; color: var(--text-main); margin-top: 3px; }
         .stat-val.red { color: var(--accent-red); }
         .stat-val.green { color: var(--accent-green); }
 
-        .ai-strip { background: linear-gradient(135deg, #1e1b18, #111827); border-left: 4px solid var(--accent-yellow); padding: 10px; border-radius: 0 8px 8px 0; font-size: 12px; color: #fef08a; margin-bottom: 15px; line-height: 1.4; }
+        .ai-strip { background: linear-gradient(135deg, #1e1b18, #111827); border-left: 4px solid var(--accent-yellow); padding: 10px 12px; border-radius: 0 8px 8px 0; font-size: 12px; color: #fef08a; margin-bottom: 15px; line-height: 1.4; }
 
-        .debt-item { display: flex; justify-content: space-between; align-items: center; background: #1a2234; padding: 8px 10px; border-radius: 6px; margin-bottom: 6px; font-size: 12px; border: 1px solid var(--border-color); }
+        .debt-item { display: flex; justify-content: space-between; align-items: center; background: var(--border-color); padding: 8px 10px; border-radius: 6px; margin-bottom: 6px; font-size: 12px; }
         .debt-amt { color: var(--accent-red); font-weight: bold; }
 
         .btn { width: 100%; background: var(--accent-yellow); color: #000; padding: 10px; border: none; border-radius: 8px; font-weight: bold; font-size: 13px; cursor: pointer; margin-top: 10px; }
+
+        .ai-float-btn { position: fixed; bottom: 20px; right: 20px; width: 55px; height: 55px; background: var(--accent-yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; cursor: pointer; box-shadow: 0 5px 20px rgba(250, 204, 21, 0.5); z-index: 1000; }
+
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: var(--card-bg); padding: 20px; border-radius: 15px; width: 100%; max-width: 400px; border: 2px solid var(--accent-yellow); }
+        .modal-content h3 { color: var(--accent-yellow); margin-bottom: 10px; font-size: 16px; }
+        .modal-content input { width: 100%; padding: 8px; margin: 8px 0; background: var(--border-color); border: 1px solid var(--text-muted); color: var(--text-main); border-radius: 6px; }
 
         .footer { text-align: center; padding: 15px; font-size: 10px; color: var(--text-muted); }
     </style>
@@ -65,14 +85,14 @@
 
 <div class="container">
     <div class="top-bar">
-        <div><span>தமிழ் / EN</span></div>
-        <div><button class="toggle-btn" onclick="alert('Command Center Active!')">Status: Online</button></div>
+        <div><span id="langText">தமிழ் / EN</span> <button class="toggle-btn" onclick="toggleLanguage()">Switch</button></div>
+        <div><button class="toggle-btn" onclick="toggleTheme()">🌓 Theme</button></div>
     </div>
 
     <div class="header">
         <div class="mascot-avatar">🧔</div>
-        <h1>SHIV PREM — COMMAND CENTER</h1>
-        <p>Age 33 | System Builder & Wealth Architect</p>
+        <h1 id="mainTitle">SHIV PREM — COMMAND CENTER</h1>
+        <p id="subTitle">Age 33 | System Builder & Wealth Architect (1993–2030+)</p>
     </div>
 
     <div class="tabs">
@@ -86,9 +106,9 @@
             🤖 <b>AI Daily Strategy:</b> தற்போதைய கடன்களை (₹27L) Avalanche முறையில் Gold Loan & Marutheasan முதல் அடைப்போம். டிரைவிங் + அல்கோ வருமானத்தில் உபரியை முதலீட்டிற்கு திருப்புங்கள்!
         </div>
 
-        <div class="section-title">📈 Dual Growth & Wealth Trajectory</div>
+        <div class="section-title">📈 Split Growth & Wealth Trajectory (Click to Zoom & Edit)</div>
         <div class="graphs-grid">
-            <div class="graph-card" onclick="alert('Personal Growth: Stability & Spiritual Discipline stage.')">
+            <div class="graph-card" onclick="openGraphModal('Personal Growth (1993-2030)', 'Life stability, spiritual discipline & family maturity stage.')">
                 <h4>🌱 Personal Growth</h4>
                 <div class="mini-graph">
                     <div class="bar yellow" style="height: 30%;"></div>
@@ -97,7 +117,7 @@
                     <div class="bar green" style="height: 100%;"></div>
                 </div>
             </div>
-            <div class="graph-card" onclick="alert('Wealth & Debt: -27L Debt to +1 Crore Wealth Curve.')">
+            <div class="graph-card" onclick="openGraphModal('Wealth & Debt Trajectory', '-27L Debt to +1 Crore Wealth Curve.')">
                 <h4>💰 Wealth & Debt</h4>
                 <div class="mini-graph">
                     <div class="bar red" style="height: 90%;"></div>
@@ -105,6 +125,14 @@
                     <div class="bar green" style="height: 30%;"></div>
                     <div class="bar green" style="height: 95%;"></div>
                 </div>
+            </div>
+        </div>
+        <div class="graph-card" onclick="openGraphModal('Skill Improvement Level', 'TradingView, Pine Script, MT5, AI Automation & Driving Business.')" style="margin-bottom: 15px;">
+            <h4>⚡ 3rd Graph: Skill Improvement & System Building Level</h4>
+            <div class="mini-graph" style="height: 40px;">
+                <div class="bar yellow" style="height: 40%;"></div>
+                <div class="bar green" style="height: 70%;"></div>
+                <div class="bar green" style="height: 90%;"></div>
             </div>
         </div>
 
@@ -142,15 +170,32 @@
         <div class="debt-item"><span><b>2028:</b> Tenkasi Farm House (5-10 Acres)</span><span style="color:var(--text-muted)">Vision</span></div>
         <div class="debt-item"><span><b>2029:</b> Mercedes Benz / EV & Foundation</span><span style="color:var(--text-muted)">Target</span></div>
         <div class="debt-item"><span><b>2030:</b> ₹5-10 Cr Wealth & Monthly 5L-10L</span><span style="color:var(--accent-yellow)">Ultimate Goal</span></div>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 12px; line-height: 1.4;">
+            ✨ <b>AI Master Vision:</b> Tenkasi 5-10 acre farm house, Shiv Rudra Foundation, Mercedes E220d/Mahindra EV, and scaling Money Earth Global to 5-10 Cr net worth by 2030.
+        </p>
     </div>
 
     <div id="tab-ai" class="tab-content">
         <div class="section-title">💬 Shiv Prem AI Assistant Bot</div>
-        <div id="chatBox" style="background:#1a2234; padding:10px; border-radius:8px; height:150px; overflow-y:auto; font-size:12px; margin-bottom:10px; display:flex; flex-direction:column; gap:8px;">
-            <div style="background:rgba(250,204,21,0.2); padding:8px; border-radius:6px;">🤖 <b>AI Bot:</b> வணக்கம் சிவ்பிரேம்! உங்கள் அல்கோ டிரேடிங் மற்றும் தென்காசி ஃபார்ம் ஹவுஸ் கனவு பற்றி என்ன விவாதிக்க வேண்டும்?</div>
+        <div id="chatBox" style="background:var(--border-color); padding:10px; border-radius:8px; height:180px; overflow-y:auto; font-size:12px; margin-bottom:10px; display:flex; flex-direction:column; gap:8px;">
+            <div style="background:rgba(250,204,21,0.2); padding:8px; border-radius:6px; align-self:flex-start;">
+                🤖 <b>AI Bot:</b> வணக்கம் சிவ்பிரேம்! உங்கள் அல்கோ டிரேடிங், கடன் ஒழிப்பு மற்றும் தென்காசி ஃபார்ம் ஹவுஸ் கனவு பற்றி என்ன விவாதிக்க வேண்டும்?
+            </div>
         </div>
-        <input type="text" id="userMsg" placeholder="Ask AI anything..." style="width:100%; padding:8px; background:#1a2234; border:1px solid var(--border-color); color:#fff; border-radius:6px; font-size:12px; margin-bottom:8px;">
+        <input type="text" id="userMsg" placeholder="Ask AI anything..." style="width:100%; padding:8px; background:var(--border-color); border:1px solid var(--text-muted); color:var(--text-main); border-radius:6px; font-size:12px;">
         <button class="btn" onclick="sendAiMessage()">Send to AI Bot</button>
+    </div>
+
+    <div class="ai-float-btn" onclick="openAiTab()" title="Chat with AI">🤖</div>
+
+    <div id="graphModal" class="modal">
+        <div class="modal-content">
+            <h3 id="modalTitle">Edit Graph Data</h3>
+            <p id="modalDesc" style="font-size:12px; color:var(--text-muted); margin-bottom:10px;"></p>
+            <label style="font-size:11px;">Update Level / Percentage:</label>
+            <input type="number" id="graphInputVal" value="75">
+            <button class="btn" onclick="closeGraphModal()">Save & Update Graph</button>
+        </div>
     </div>
 
     <div class="footer">
@@ -159,6 +204,8 @@
 </div>
 
 <script>
+    let currentLang = 'ta';
+
     function switchTab(evt, tabId) {
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -166,15 +213,52 @@
         evt.currentTarget.classList.add('active');
     }
 
+    function openAiTab() {
+        document.querySelectorAll('.tab-btn')[2].click();
+    }
+
+    function toggleTheme() {
+        const html = document.documentElement;
+        if(html.getAttribute('data-theme') === 'dark') {
+            html.setAttribute('data-theme', 'light');
+        } else {
+            html.setAttribute('data-theme', 'dark');
+        }
+    }
+
+    function toggleLanguage() {
+        currentLang = currentLang === 'ta' ? 'en' : 'ta';
+        document.getElementById('langText').innerText = currentLang === 'ta' ? 'தமிழ் / EN' : 'EN / தமிழ்';
+        if(currentLang === 'en') {
+            document.getElementById('subTitle').innerText = 'Age 33 | System Builder & Wealth Architect (1993-2030+)';
+        } else {
+            document.getElementById('subTitle').innerText = 'Age 33 | சிஸ்டம் பில்டர் & வெல்த் ஆர்க்கிடெக்ட் (1993-2030+)';
+        }
+    }
+
+    function openGraphModal(title, desc) {
+        document.getElementById('modalTitle').innerText = title;
+        document.getElementById('modalDesc').innerText = desc;
+        document.getElementById('graphModal').style.display = 'flex';
+    }
+
+    function closeGraphModal() {
+        document.getElementById('graphModal').style.display = 'none';
+        alert('Graph level updated successfully! 📊');
+    }
+
     function sendAiMessage() {
         const input = document.getElementById('userMsg');
         const chatBox = document.getElementById('chatBox');
         if(!input.value.trim()) return;
-        chatBox.innerHTML += `<div style="background:rgba(34,197,94,0.2); padding:8px; border-radius:6px;">👤 <b>You:</b> ${input.value}</div>`;
+
+        chatBox.innerHTML += `<div style="background:rgba(34,197,94,0.2); padding:8px; border-radius:6px; align-self:flex-end;">👤 <b>You:</b> ${input.value}</div>`;
+        
         setTimeout(() => {
-            chatBox.innerHTML += `<div style="background:rgba(250,204,21,0.2); padding:8px; border-radius:6px;">🤖 <b>AI Bot:</b> மிகச்சரியான வழி சிவ்பிரேம்! 2030 இலக்கை நோக்கி தொடர்ந்து பயணிப்போம்! 🚀</div>`;
+            chatBox.innerHTML += `<div style="background:rgba(250,204,21,0.2); padding:8px; border-radius:6px; align-self:flex-start;">🤖 <b>AI Bot:</b> மிகச்சரியான கேள்வி சிவ்பிரேம்! உங்கள் இலக்கை அடைய அல்கோ டிரேடிங் ஆட்டோமேஷனைத் தொடர்ந்து மேம்படுத்துங்கள். 2030-க்குள் தென்காசி 10 ஏக்கர் மற்றும் ஃபார்ம் ஹவுஸ் இலக்கை நாம் நிச்சயம் அடைவோம்! 🚀</div>`;
             chatBox.scrollTop = chatBox.scrollHeight;
-        }, 500);
+        }, 600);
+
         input.value = '';
         chatBox.scrollTop = chatBox.scrollHeight;
     }
